@@ -23,3 +23,25 @@ int main()
 OUTPUT:
 ![image](https://user-images.githubusercontent.com/98145023/150921910-01833145-18b8-40e4-8643-aa2ab734e192.png)
 
+ARRAY TO ADD 10 ELEMENTS USING WHILE LOOP
+#include <iostream> 
+ 
+using namespace std; 
+ 
+int main() 
+{ 
+    int i,arr[10],sum=0,number,n; 
+     cout<<"Enter 10 elements:";
+     cin>>n;
+     while(n>0)
+	{
+		cin>>number;
+		sum+=number;
+		n--;
+	}
+	cout<<"\n sum is:"<<sum;
+	return 0;
+}
+ 
+ OUTPUT:
+ ![image](https://user-images.githubusercontent.com/98145023/150925825-27c1da30-d6cf-4bc6-a7c7-cd8d1cbfd677.png)
