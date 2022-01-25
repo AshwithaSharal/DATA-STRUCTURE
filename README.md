@@ -21,5 +21,5 @@ int main()
 }
                                     
 OUTPUT:
-Enter 10 elements:1 6 7 8 6 9 5 6 5 7<br>
-Sum of numbers is:60
+![image](https://user-images.githubusercontent.com/98145023/150921910-01833145-18b8-40e4-8643-aa2ab734e192.png)
+
