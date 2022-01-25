@@ -21,5 +21,5 @@ int main()
 }
                                     
 OUTPUT:
-Enter 10 elements:1 6 7 8 6 9 5 6 5 7
+Enter 10 elements:1 6 7 8 6 9 5 6 5 7<br>
 Sum of numbers is:60
