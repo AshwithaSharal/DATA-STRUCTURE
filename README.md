@@ -123,8 +123,8 @@ int main()
 	
 	
 	ARRAY USING STACKS<br><br>
-	#include <iostream><br>
-using namespace std;<br>
+	#include <iostream>
+using namespace std;
 int stack[100], n=100, top=-1;<br>
 void push(int val) <br>{<br>
    if(top>=n-1)<br>
@@ -187,6 +187,6 @@ int main()<br> {<br>
    return 0;<br>
 }<br>
 
-	OUTPUT:<br>
+	OUTPUT:
 ![image](https://user-images.githubusercontent.com/98145023/150932273-8406c171-c1c1-46e9-96bf-635bc43fd77b.png)
 <br><br>
