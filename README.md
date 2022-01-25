@@ -1,7 +1,7 @@
 # DATA-STRUCTURE
 ARRAY OF ADDING 10 NUMBERS USING FOR
 
-#include <iostream> 
+#include <iostream.h>
  
 using namespace std; 
  
