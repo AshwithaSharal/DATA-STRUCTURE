@@ -277,4 +277,5 @@ int main() {
    return 0;
 }<br>
 	OUTPUT:<br>
-
+![image](https://user-images.githubusercontent.com/98145023/150932273-8406c171-c1c1-46e9-96bf-635bc43fd77b.png)
+<br><br>
