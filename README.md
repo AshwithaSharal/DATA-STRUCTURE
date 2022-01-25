@@ -117,4 +117,6 @@ int main()
     }while(ch=='Y'||ch=='y');
      
     return 0;
-}
+}<br><br>
+	OUTPUT:<br>
+	
