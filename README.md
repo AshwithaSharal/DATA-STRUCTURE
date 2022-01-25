@@ -20,10 +20,10 @@ int main()
     return 0; 
 }
                                     
-OUTPUT:
+OUTPUT:<br><br>
 ![image](https://user-images.githubusercontent.com/98145023/150921910-01833145-18b8-40e4-8643-aa2ab734e192.png)
 
-ARRAY TO ADD 10 ELEMENTS USING WHILE LOOP<br>
+ARRAY TO ADD 10 ELEMENTS USING WHILE LOOP<br><br>
 #include <iostream><br>
  
 using namespace std; <br>
@@ -43,5 +43,5 @@ int main() <br>
 	return 0;<br>
 }<br>
  
- OUTPUT:<br>
+ OUTPUT:<br><br>
  ![image](https://user-images.githubusercontent.com/98145023/150925825-27c1da30-d6cf-4bc6-a7c7-cd8d1cbfd677.png)
