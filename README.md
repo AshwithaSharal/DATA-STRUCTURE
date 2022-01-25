@@ -21,7 +21,7 @@ int main()
 }
                                     
 OUTPUT:<br><br>
-![image](https://user-images.githubusercontent.com/98145023/150921910-01833145-18b8-40e4-8643-aa2ab734e192.png)
+![image](https://user-images.githubusercontent.com/98145023/150921910-01833145-18b8-40e4-8643-aa2ab734e192.png)<br><br><br><br>
 
 ARRAY TO ADD 10 ELEMENTS USING WHILE LOOP<br><br>
 #include <iostream><br>
