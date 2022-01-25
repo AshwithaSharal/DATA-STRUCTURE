@@ -119,4 +119,5 @@ int main()
     return 0;
 }<br><br>
 	OUTPUT:<br>
-	
+	![image](https://user-images.githubusercontent.com/98145023/150928704-83a51495-6542-4ae2-a269-0645d7134f41.png)
+
