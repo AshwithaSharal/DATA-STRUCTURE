@@ -123,159 +123,70 @@ int main()
 	
 	
 	ARRAY USING STACKS<br><br>
-	#include <iostream>
-using namespace std;
-int stack[100], n=100, top=-1;
-void push(int val) {
-   if(top>=n-1)
-   cout<<"Stack Overflow"<<endl;
-   else {
-      top++;
-      stack[top]=val;
-   }
-}
-void pop() {
-   if(top<=-1)
-   cout<<"Stack Underflow"<<endl;
-   else {
-      cout<<"The popped element is "<< stack[top] <<endl;
-      top--;
-   }
-}
-void display() {
-   if(top>=0) {
-      cout<<"Stack elements are:";
-      for(int i=top; i>=0; i--)
-      cout<<stack[i]<<" ";
-      cout<<endl;
-   } else
-   cout<<"Stack is empty";
-}
-int main() {
-   int ch, val;
-   cout<<"1) Push in stack"<<endl;
-   cout<<"2) Pop from stack"<<endl;
-   cout<<"3) Display stack"<<endl;
-   cout<<"4) Exit"<<endl;
-   do {
-      cout<<"Enter choice: "<<endl;
-      cin>>ch;
-      switch(ch) {
-         case 1: {
-            cout<<"Enter value to be pushed:"<<endl;
-            cin>>val;
-            push(val);
-            break;
-         }
-         case 2: {
-            pop();
-            break;
-         }
-         case 3: {
-            display();
-            break;
-         }
-         case 4: {
-            cout<<"Exit"<<endl;
-            break;
-         }
-         default: {
-            cout<<"Invalid Choice"<<endl;
-         }
-      }
-   }while(ch!=4);
-   return 0;
-}
-Output
-1) Push in stack
-2) Pop from stack
-3) Display stack
-4) Exit
-
-Enter choice: 1
-Enter value to be pushed: 2
-Enter choice: 1
-Enter value to be pushed: 6
-Enter choice: 1
-Enter value to be pushed: 8
-Enter choice: 1
-Enter value to be pushed: 7
-Enter choice: 2
-The popped element is 7
-Enter choice: 3
-Stack elements are:8 6 2
-Enter choice: 5
-Invalid Choice
-Enter choice: 4
-Exit
-In the above program, the push() function takes argument val i.e. value to be pushed into the stack. If a top is greater than or equal to n, there is no space in a stack and overflow is printed. Otherwise, val is pushed into the stack. The code snippet for this is as follows.
-
-void push(int val) {
-   if(top>=n-1)
-   cout<<"Stack Overflow"<<endl;
-   else {
-      top++;
-      stack[top]=val;
-   }
-}
-The pop() function pops the topmost value of the stack, if there is any value. If the stack is empty then underflow is printed. This is given as follows.
-
-void pop() {
-   if(top<=-1)
-   cout<<"Stack Underflow"<<endl;
-   else {
-      cout<<"The popped element is "<< stack[top] <<endl;
-      top--;
-   }
-}
-The display() function displays all the elements in the stack. It uses a for loop to do so. If there are no elements in the stack, then Stack is empty is printed. This is given below.
-
-void display() {
-   if(top>=0) {
-      cout<<"Stack elements are:";
-      for(int i=top; i>=0; i--)
-      cout<<stack[i]<<" ";
-      cout<<endl;
-   }else
-   cout<<"Stack is empty";
-}
-The function main() provides a choice to the user if they want to push, pop or display the stack. According to the user response, the appropriate function is called using switch. If the user enters an invalid response, then that is printed. The code snippet for this is given below.
-
-int main() {
-   int ch, val;
-   cout<<"1) Push in stack"<<endl;
-   cout<<"2) Pop from stack"<<endl;
-   cout<<"3) Display stack"<<endl;
-   cout<<"4) Exit"<<endl;
-   do {
-      cout<<"Enter choice: "<<endl;
-      cin>>ch;
-      switch(ch) {
-         case 1: {
-            cout<<"Enter value to be pushed:"<<endl;
-            cin>>val;
-            push(val);
-            break;
-         }
-         case 2: {
-            pop();
-            break;
-         }
-         case 3: {
-            display();
-            break;
-         }
-         case 4: {
-            cout<<"Exit"<<endl;
-            break;
-         }
-         default: {
-            cout<<"Invalid Choice"<<endl;
-         }
-      }
-   }while(ch!=4);
-   return 0;
+	#include <iostream><br>
+using namespace std;<br>
+int stack[100], n=100, top=-1;<br>
+void push(int val) <br>{<br>
+   if(top>=n-1)<br>
+   cout<<"Stack Overflow"<<endl;<br>
+   else <br>{<br>
+      top++;<br>
+      stack[top]=val;<br>
+   }<br>
 }<br>
+void pop()<br> {<br>
+   if(top<=-1)<br>
+   cout<<"Stack Underflow"<<endl;<br>
+   else <br>{<br>
+      cout<<"The popped element is "<< stack[top] <<endl;<br>
+      top--;<br>
+   }<br>
+}<br>
+void display() <br>{<br>
+   if(top>=0) <br>{<br>
+      cout<<"Stack elements are:";<br>
+      for(int i=top; i>=0; i--)<br>
+      cout<<stack[i]<<" ";<br>
+      cout<<endl;<br>
+   }<br> else<br>
+   cout<<"Stack is empty";<br>
+}<br>
+int main()<br> {<br>
+   int ch, val;<br>
+   cout<<"1) Push in stack"<<endl;<br>
+   cout<<"2) Pop from stack"<<endl;<br>
+   cout<<"3) Display stack"<<endl;<br>
+   cout<<"4) Exit"<<endl;<br>
+   do<br> {<br>
+      cout<<"Enter choice: "<<endl;<br>
+      cin>>ch;<br>
+      switch(ch) {<br>
+         case 1: {<br>
+            cout<<"Enter value to be pushed:"<<endl;<br>
+            cin>>val;<br>
+            push(val);<br>
+            break;<br>
+         }<br>
+         case 2: {<br>
+            pop();<br>
+            break;<br>
+         }<br>
+         case 3: {<br>
+            display();<br>
+            break;<br>
+         }<br>
+         case 4: {<br>
+            cout<<"Exit"<<endl;<br>
+            break;<br>
+         }<br>
+         default: {<br>
+            cout<<"Invalid Choice"<<endl;<br>
+         }<br>
+      }<br>
+   }<br>while(ch!=4);<br>
+   return 0;<br>
+}<br>
+
 	OUTPUT:<br>
 ![image](https://user-images.githubusercontent.com/98145023/150932273-8406c171-c1c1-46e9-96bf-635bc43fd77b.png)
 <br><br>
