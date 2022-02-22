@@ -818,7 +818,8 @@ int main()<br>
 	return 0;<br>
 }<br><br>
 
-	![image](https://user-images.githubusercontent.com/98145023/155066582-ed247717-4e1a-44ff-9b64-cb9182600775.png)<br><br><br>
+	![image](https://user-images.githubusercontent.com/98145023/155084172-a54e22ea-eef5-4671-8706-6b78008d5517.png)
+<br><br><br>
 	
 	
 	#include<iostream>
@@ -869,13 +870,7 @@ int main()
    inorder(root);
    return 0;
 }
-![image](https://user-images.githubusercontent.com/98145023/155083402-0b8ae125-adab-4545-8e87-e37df61479e9.png)
-
-
-	![image](https://user-images.githubusercontent.com/98145023/152731597-00b44b5b-b4e3-4662-b47f-33ca0e75df8a.png)<br>
-	![image](https://user-images.githubusercontent.com/98145023/152731709-242da1eb-bdc2-4608-8b96-78acf6a9c849.png)<br>
-	![image](https://user-images.githubusercontent.com/98145023/152731805-1d93fe23-8299-4e82-a55c-ac7fb619a0a7.png)<br>
-	<br><br><br>
+![image](https://user-images.githubusercontent.com/98145023/155083678-8ad9d5ea-e6fd-4af3-9efc-8e84b3bc4f01.png)<br><br><br>
 
 
 
