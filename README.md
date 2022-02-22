@@ -723,7 +723,103 @@ OUTPUT:<br>
 	![image](https://user-images.githubusercontent.com/98145023/152730852-cdca1412-6792-406f-840d-4abcdafa1981.png)<br>
 	![image](https://user-images.githubusercontent.com/98145023/152731107-2f3728b2-fe7b-445e-88f9-4d7a173bd488.png)<br>
 	![image](https://user-images.githubusercontent.com/98145023/152731257-92bdc871-2889-48cb-862d-3a32fd6837d9.png)<br>
-	![image](https://user-images.githubusercontent.com/98145023/152731411-8549d63b-3633-4708-9ee2-8cebe50a6a75.png)<br>
+	![image](https://user-images.githubusercontent.com/98145023/152731411-8549d63b-3633-4708-9ee2-8cebe50a6a75.png)<br><br><br>
+	
+	
+	
+	Write a C++ program to split the given linked list in such a way that the given element's position should be the first node of second list<br>
+	#include<iostream><br>
+using namespace std;<br>
+struct Node <br>
+{<br>
+	int value;<br>
+	struct Node *next;<br>
+};<br>
+struct Node* head=NULL;<br>
+struct Node* sHead=NULL;<br>
+struct Node* temp=NULL;<br>
+void insert(int new_data)<br>
+{<br>
+	struct Node* new_node = new Node();<br>
+	new_node->value = new_data;<br>
+	new_node->next = head;<br>
+	head = new_node;<br>
+}<br>
+int n;<br>
+int ele;<br>
+int splitlndex;<br>
+int main()<br>
+{<br>
+	int i;<br>
+	cout<<"Enter number of elements you want in the list\t";<br>
+	cin>>n;<br>
+	cout<<"Enter elements:"<<endl;<br>
+	for(i=0;i<n;i++)<br>
+	{<br>
+		cin>>ele;<br>
+		insert(ele);<br>
+	}<br>
+	cout<<"\nList of elements:"<<endl;<br>
+	Node *t;<br>
+	t=head;<br>
+	while(t!=NULL)<br>
+	{<br>
+		cout<<t->value<<"\t";<br>
+		t=t->next;<br>
+	}<br>
+	cout<<"\n\nEnter the element you want the list to split";<br>
+	cin>>splitlndex;<br>
+	while(splitlndex<0||splitlndex>n-1)<br>
+	{<br>
+		cout<<"Invalid position.Try again."<<endl;<br>
+		cin>>splitlndex;<br>
+	}<br>
+	temp=head;<br>
+	for(i=0;i<splitlndex;i++)<br>
+	{<br>
+		if(i==splitlndex-1)<br>
+		{<br>
+			Node *tN;<br>
+			tN=temp->next;<br>
+			sHead=tN;<br>
+			temp->next=NULL;<br>
+			break;<br>
+		}<br>
+		temp=temp->next;<br>
+	}<br>
+	temp=head;<br>
+	if(temp==NULL)<br>
+	{<br>
+		cout<<"\n First list is empty"<<endl;<br>
+	}<br>
+	else<br>
+	{<br>
+		cout<<"\n\nFirst list element"<<endl;<br>
+		while(temp!=NULL)<br>
+		{<br>
+			cout<<temp->value<<"\t";<br>
+			temp=temp->next;<br>
+		}<br>
+	}<br>
+	temp=sHead;<br>
+	if(temp==NULL)<br>
+	{<br>
+		cout<<"\nSecond list is empty"<<endl;<br>
+	}<br>
+	else<br>
+	{<br>
+		cout<<"\n\nSecond list elements"<<endl;<br>
+		while(temp!=NULL)<br>
+		{<br>
+			cout<<temp->value<<"\t";<br>
+			temp=temp->next;<br>
+		}<br>
+	}<br>
+	return 0;<br>
+}<br><br>
+
+	![image](https://user-images.githubusercontent.com/98145023/155066582-ed247717-4e1a-44ff-9b64-cb9182600775.png)<br><br><br>
+
 	![image](https://user-images.githubusercontent.com/98145023/152731597-00b44b5b-b4e3-4662-b47f-33ca0e75df8a.png)<br>
 	![image](https://user-images.githubusercontent.com/98145023/152731709-242da1eb-bdc2-4608-8b96-78acf6a9c849.png)<br>
 	![image](https://user-images.githubusercontent.com/98145023/152731805-1d93fe23-8299-4e82-a55c-ac7fb619a0a7.png)<br>
