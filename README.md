@@ -817,9 +817,7 @@ int main()<br>
 	}<br>
 	return 0;<br>
 }<br><br>
-
-	![image](https://user-images.githubusercontent.com/98145023/155084172-a54e22ea-eef5-4671-8706-6b78008d5517.png)
-<br><br><br>
+![image](https://user-images.githubusercontent.com/98145023/155084172-a54e22ea-eef5-4671-8706-6b78008d5517.png)<br><br><br>
 	
 	
 	#include<iostream>
