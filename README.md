@@ -820,54 +820,54 @@ int main()<br>
 ![image](https://user-images.githubusercontent.com/98145023/155084172-a54e22ea-eef5-4671-8706-6b78008d5517.png)<br><br><br>
 	
 	
-	#include<iostream>
-using namespace std;
-struct node
- {
-   int data;
-   struct node *left;
-   struct node *right;
-};
+	#include<iostream><br>
+	using namespace std;<br>
+	struct node<br>
+	{<br>
+   int data;<br>
+   struct node *left;<br>
+   struct node *right;<br>
+};<br>
 struct node *createNode(int val)
- {
-   struct node *temp = (struct node *)malloc(sizeof(struct node));
-   temp->data = val;
-   temp->left = temp->right = NULL;
-   return temp;
-}
-void inorder(struct node *root)
- {
-   if (root != NULL) 
-   {
-      inorder(root->left);
-      cout<<root->data<<" ";
-      inorder(root->right);
-   }
-}
-struct node* insertNode(struct node* node, int val)
- {
-   if (node == NULL) return createNode(val);
-   if (val < node->data)
-   node->left = insertNode(node->left, val);
-   else if (val > node->data)
-   node->right = insertNode(node->right, val);
-   return node;
-}
-int main() 
-{
-   struct node *root = NULL;
-   root = insertNode(root, 7);
-   insertNode(root, 90);
-   insertNode(root, 100);
-   insertNode(root, 10);
-   insertNode(root, 20);
-   insertNode(root, 18);
-   insertNode(root, 200);
-   insertNode(root, 150);
-   cout<<"In-Order traversal of the Binary Search Tree is: ";
-   inorder(root);
-   return 0;
-}
+ {<br>
+   struct node *temp = (struct node *)malloc(sizeof(struct node));<br>
+   temp->data = val;<br>
+   temp->left = temp->right = NULL;<br>
+   return temp;<br>
+}<br>
+void inorder(struct node *root)<br>
+ {<br>
+   if (root != NULL) <br>
+   {<br>
+      inorder(root->left);<br>
+      cout<<root->data<<" ";<br>
+      inorder(root->right);<br>
+   }<br>
+}<br>
+struct node* insertNode(struct node* node, int val)<br>
+ {<br>
+   if (node == NULL) return createNode(val);<br>
+   if (val < node->data)<br>
+   node->left = insertNode(node->left, val);<br>
+   else if (val > node->data)<br>
+   node->right = insertNode(node->right, val);<br>
+   return node;<br>
+}<br>
+int main() <br>
+{<br>
+   struct node *root = NULL;<br>
+   root = insertNode(root, 7);<br>
+   insertNode(root, 90);<br>
+   insertNode(root, 100);<br>
+   insertNode(root, 10);<br>
+   insertNode(root, 20);<br>
+   insertNode(root, 18);<br>
+   insertNode(root, 200);<br>
+   insertNode(root, 150);<br>
+   cout<<"In-Order traversal of the Binary Search Tree is: ";<br>
+   inorder(root);<br>
+   return 0;<br>
+}<br>
 ![image](https://user-images.githubusercontent.com/98145023/155083678-8ad9d5ea-e6fd-4af3-9efc-8e84b3bc4f01.png)<br><br><br>
 
 
@@ -935,6 +935,50 @@ OUTPUT:<br>
 ![image](https://user-images.githubusercontent.com/98145023/155932060-7dbcc60c-be65-4259-a926-285a9df82d1a.png)
 ![image](https://user-images.githubusercontent.com/98145023/155932226-50289bde-e42c-45fe-9b60-d83f45f2ac0e.png)<br><br><br>
 
+
+C++ proagrm to implement doubly linked list.<br>
+#include <iostream><br>
+using namespace std;<br>
+struct Node <br>
+{<br>
+   int data;<br>
+   struct Node *prev;<br>
+   struct Node *next;<br>
+};<br>
+struct Node* head = NULL;<br>
+void insert(int newdata)<br> 
+{<br>
+   struct Node* newnode = (struct Node*) malloc(sizeof(struct Node));<br>
+   newnode->data = newdata;<br>
+   newnode->prev = NULL;<br>
+   newnode->next = head;<br>
+   if(head != NULL)<br>
+   head->prev = newnode ;<br>
+   head = newnode;<br>
+}<br>
+void display() <br>
+{<br>
+   struct Node* ptr;<br>
+   ptr = head;<br>
+   while(ptr != NULL) <br>
+   {<br>
+      cout<< ptr->data <<" ";<br>
+      ptr = ptr->next;<br>
+   }<br>
+}<br>
+int main() <br>
+{<br>
+   insert(3);<br>
+   insert(1);<br>
+   insert(7);<br>
+   insert(2);<br>
+   insert(9);<br>
+   cout<<"The doubly linked list is: ";<br>
+   display();<br>
+   return 0;<br>
+}<br>
+OUTPUT:<br>
+![image](https://user-images.githubusercontent.com/98145023/155934148-fc606d97-e4c9-4e18-920e-a1ce6adfb590.png)<br><br><br>
 
 
 
