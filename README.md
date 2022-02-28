@@ -871,6 +871,69 @@ int main()
 ![image](https://user-images.githubusercontent.com/98145023/155083678-8ad9d5ea-e6fd-4af3-9efc-8e84b3bc4f01.png)<br><br><br>
 
 
+8.Write a program to store k keys into an array of size n at the location compute using a hash function, loc=key%n, where k<=n and key takes values from [1 to m], m>n.
+Handle the collision using Linear Probing technique.<br>
+
+#include<iostream> <br>
+#include<limits.h> <br>
+using namespace std; <br>
+void Insert(int ary[],int hFn, int Size) <br>
+{ <br>
+int element,pos,n=0; <br>
+cout<<"Enter key element to insert\n"; <br>
+cin>>element; <br>
+pos = element%hFn; <br>
+while(ary[pos]!= INT_MIN) <br>
+{ <br>
+if(ary[pos]== INT_MAX) <br>
+break; <br>
+pos = (pos+1)%hFn; <br>
+n++; <br>
+if(n==Size) <br>
+break; <br>
+} <br>
+if(n==Size) <br>
+cout<<"Hash table was full of elements\nNo Place to insert this element\n\n"; <br>
+else <br>
+ary[pos] = element; <br>
+} <br>
+void display(int ary[],int Size)<br>
+{ <br>
+int i; <br>
+cout<<"Index\tValue\n"; <br>
+for(i=0;i<Size;i++) <br>
+cout<<i<<"\t"<<ary[i]<<"\n"; <br>
+} <br>
+int main() <br>
+{ <br>
+int Size,hFn,i,choice; <br>
+cout<<"Enter size of hash table\n"; <br>
+cin>>Size; <br>
+hFn=Size; <br>
+int ary[Size]; <br>
+for(i=0;i<Size;i++) <br>
+ary[i]=INT_MIN; <br>
+do <br>
+{ <br>
+cout<<"Enter your choice\n";<br> 
+cout<<" 1-> Insert\n 2-> Display\n 0-> Exit\n"; <br>
+cin>>choice; <br>
+switch(choice)<br> 
+{ <br>
+case 1: Insert(ary,hFn,Size); <br>
+break; <br>
+case 2: display(ary,Size); <br>
+break;<br> 
+default: cout<<"Enter correct choice\n"; <br>
+break;<br>
+}<br>
+}<br>
+while(choice);<br>
+return 0;<br>
+}<br>
+OUTPUT:<br>
+![image](https://user-images.githubusercontent.com/98145023/155932060-7dbcc60c-be65-4259-a926-285a9df82d1a.png)
+![image](https://user-images.githubusercontent.com/98145023/155932226-50289bde-e42c-45fe-9b60-d83f45f2ac0e.png)<br><br><br>
 
 
 
