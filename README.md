@@ -1096,7 +1096,7 @@ void display(int count)<br>
  cout<<set[i];<br>
  cout<<"}";<br>
 }<br>
-OUTPUT:<br>
+OUTPUT:
 ![image](https://user-images.githubusercontent.com/98145023/157187457-4bab5320-9f61-483c-a54a-ffa5f36cf167.png)<br><br><br>
 
 	
