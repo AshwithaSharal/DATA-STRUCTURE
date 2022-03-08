@@ -1097,7 +1097,7 @@ void display(int count)<br>
  cout<<"}";<br>
 }<br>
 OUTPUT:<br>
-	![image](https://user-images.githubusercontent.com/98145023/157187457-4bab5320-9f61-483c-a54a-ffa5f36cf167.png)<br><br><br>
+![image](https://user-images.githubusercontent.com/98145023/157187457-4bab5320-9f61-483c-a54a-ffa5f36cf167.png)<br><br><br>
 
 	
 	
