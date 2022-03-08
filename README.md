@@ -1045,17 +1045,13 @@ OUTPUT:<br>
 Write  C++ program to implement sum of subsets using backtracking.<br>
 #include<iostream><br>
 using namespace std;<br>
-
 int s[10],d,n,set[10],count=0;<br>
 void display(int);<br>
 int flag = 0;<br>
-
-
 int main()<br>
 {<br>
  int subset(int,int);<br>
  int i;<br>
- 
  cout<<"ENTER THE NUMBER OF THE ELEMENTS IN THE SET : ";<br>
  cin>>n;<br>
  cout<<"ENTER THE SET OF VALUES : ";<br>
@@ -1068,8 +1064,7 @@ int main()<br>
  if(flag == 0)<br>
  cout<<"There is no solution";<br>
  }<br>
- 
-int subset(int sum,int i)<br>
+ int subset(int sum,int i)<br>
 {<br>
 if(sum == d)<br>
  {<br>
@@ -1096,7 +1091,7 @@ void display(int count)<br>
  cout<<set[i];<br>
  cout<<"}";<br>
 }<br>
-OUTPUT:
+OUTPUT:<br>
 ![image](https://user-images.githubusercontent.com/98145023/157187457-4bab5320-9f61-483c-a54a-ffa5f36cf167.png)<br><br><br>
 
 	
