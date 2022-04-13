@@ -1295,3 +1295,59 @@ OUTPUT:<br>
         ![image](https://user-images.githubusercontent.com/98145023/163158844-e346f20b-a472-4359-aad3-dcaa035ab785.png)<br>
 ![image](https://user-images.githubusercontent.com/98145023/163159106-8a59050a-0632-46d5-8724-2b32cca25854.png)<br><br><br>
 
+
+	
+	
+#include <bits/stdc++.h><br>
+using namespace std;<br>
+void mergeofarrays(int a[], int low, int mid, int high) {<br>
+  int i = low, j = mid + 1, index = low, temp[100], k;<br>
+  while ((i <= mid) && (j <= high)) {<br>
+    if (a[i] < a[j]) {<br>
+      temp[index] = a[i];<br>
+      i++;<br>
+    } else {<br>
+      temp[index] = a[j];<br>
+      j++;<br>
+    }<br>
+    index++;<br>
+  }<br>
+  //copy the remaining elements of right array<br>
+  if (i > mid) {<br>
+    while (j <= high) {<br>
+      temp[index] = a[j];<br>
+      j++;<br>
+      index++;<br>
+    }<br>
+  } else //remaining elements of left array<br>
+  {<br>
+    while (i <= mid) {<br>
+      temp[index] = a[i];<br>
+      i++;<br>
+      index++;<br>
+    }<br>
+  }<br>
+  for (k = low; k < index; k++) //copying into original array<br>
+  {<br>
+    a[k] = temp[k];<br>
+  }<br>
+}<br>
+void mergesort(int a[], int low, int high) {<br>
+  if (low < high) {<br>
+    int middle = (low + high) / 2; //calculating middle index of array to divide it in two halves<br>
+    mergesort(a, low, middle); //sorting first half<br>
+    mergesort(a, middle + 1, high); //sorting second half<br>
+    mergeofarrays(a, low, middle, high); //merging 2 sorted halves<br>
+  }<br>
+}<br>
+int main() {<br>
+  int n = 7;<br>
+  int a[100] = {54,34,23,10,98,2,3};<br>
+  mergesort(a, 0, 6);<br>
+  for (int i = 0; i < n; i++) {<br>
+    cout << a[i] << " ";<br>
+  }<br>
+}<br>
+OUTPUT:<br>
+![image](https://user-images.githubusercontent.com/98145023/163165229-5cd1e7fd-ed45-4f1d-96b2-cfd673255d15.png)<br><br><br>
+		    
