@@ -1289,7 +1289,9 @@ int main()<br> {<br>
       }<br>
    }<br>
    return 0;<br>
-}<br>
-
-
+}<br><br>
+OUTPUT:<br>
+	![image](https://user-images.githubusercontent.com/98145023/163158944-798b2707-95bc-434a-b483-dec707dd14ea.png)<br>
+        ![image](https://user-images.githubusercontent.com/98145023/163158844-e346f20b-a472-4359-aad3-dcaa035ab785.png)<br>
+![image](https://user-images.githubusercontent.com/98145023/163159106-8a59050a-0632-46d5-8724-2b32cca25854.png)<br><br><br>
 
