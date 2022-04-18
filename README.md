@@ -1413,7 +1413,7 @@ return 0;<br>
 }<br>
 OUTPUT:<br>
 ![image](https://user-images.githubusercontent.com/98145023/163770441-45230300-4d83-4a8c-ba79-50d7d42b8aa6.png)<br>
-![image](https://user-images.githubusercontent.com/98145023/163770339-c97624e6-bc5e-4f1f-8b39-8393a7d6e54d.png)<br>
+![image](https://user-images.githubusercontent.com/98145023/163770339-c97624e6-bc5e-4f1f-8b39-8393a7d6e54d.png)<br><br><br>
 	
 
 	
@@ -1466,8 +1466,7 @@ bool solveNQ()<br>
 						{ 0, 0, 0, 0 },<br>
 						{ 0, 0, 0, 0 },<br>
 						{ 0, 0, 0, 0 } };<br>
-
-	if (solveNQUtil(board, 0) == false) <br>
+if (solveNQUtil(board, 0) == false) <br>
 	{<br>
 		cout << "Solution does not exist";<br>
 		return false;<br>
@@ -1482,5 +1481,6 @@ int main()<br>
 	return 0;<br>
 }<br>
 OUTPUT:<br>
-![image](https://user-images.githubusercontent.com/98145023/163772808-b60570d9-e375-416d-8e16-76193d74ed00.png)<br>
+![image](https://user-images.githubusercontent.com/98145023/163772808-b60570d9-e375-416d-8e16-76193d74ed00.png)<br><br><br>
+
 		
