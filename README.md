@@ -1353,15 +1353,19 @@ OUTPUT:<br>
 		    
 
 	
+
+HASHING<br>
 #include<iostream><br>
 #include<limits.h> <br>
 using namespace std;<br>
-void Insert(int ary[],int hFn, int Size)<br>{ 
+void Insert(int ary[],int hFn, int Size)<br>
+	{ <br>
  int element,pos,n=0; <br>
 cout<<"Enter key element to insert\n";<br>
 cin>>element;<br>
 pos = element%hFn; <br>
-while(ary[pos]!= INT_MIN) { <br>
+while(ary[pos]!= INT_MIN)<br>
+	{ <br>
 if(ary[pos]== INT_MAX)<br>
  break; <br>
 pos = (pos+1)%hFn; <br>
@@ -1374,7 +1378,8 @@ if(n==Size)<br>
 else<br>
  ary[pos] = element; <br>
 } <br>
-void display(int ary[],int Size){ <br>
+void display(int ary[],int Size)<br>
+	{ <br>
 int i;<br>
  <br>cout<<"Index\tValue\n";<br>
 for(i=0;i<Size;i++)<br>
