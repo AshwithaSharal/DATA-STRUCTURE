@@ -1415,3 +1415,72 @@ OUTPUT:<br>
 ![image](https://user-images.githubusercontent.com/98145023/163770441-45230300-4d83-4a8c-ba79-50d7d42b8aa6.png)<br>
 ![image](https://user-images.githubusercontent.com/98145023/163770339-c97624e6-bc5e-4f1f-8b39-8393a7d6e54d.png)<br>
 	
+
+	
+	
+Nqueen<br>
+#include <bits/stdc++.h><br>
+#define N 4<br>
+using namespace std;<br>
+void printSolution(int board[N][N])<br>
+{<br>
+	for (int i = 0; i < N; i++) <br>
+	{<br>
+		for (int j = 0; j < N; j++)<br>
+			cout << " " << board[i][j] << " ";<br>
+	}<br>
+}<br>
+bool isSafe(int board[N][N], int row, int col)<br>
+{<br>
+	int i, j;<br>
+	for (i = 0; i < col; i++)<br>
+		if (board[row][i])<br>
+			return false;<br>
+	for (i = row, j = col; i >= 0 && j >= 0; i--, j--)<br>
+		if (board[i][j])<br>
+			return false;<br>
+	for (i = row, j = col; j >= 0 && i < N; i++, j--)<br>
+		if (board[i][j])<br>
+			return false;<br>
+return true;<br>
+}<br>
+bool solveNQUtil(int board[N][N], int col)<br>
+{<br>
+	if (col >= N)<br>
+		return true;<br>
+for (int i = 0; i < N; i++)<br>
+	 {<br>
+if (isSafe(board, i, col)) <br>
+		{<br>
+			board[i][col] = 1;<br>
+			if (solveNQUtil(board, col + 1))<br>
+				return true;<br>
+board[i][col] = 0;<br>
+		}<br>
+	}<br>
+return false;<br>
+}<br>
+bool solveNQ()<br>
+{<br>
+	int board[N][N] = { { 0, 0, 0, 0 },<br>
+						{ 0, 0, 0, 0 },<br>
+						{ 0, 0, 0, 0 },<br>
+						{ 0, 0, 0, 0 } };<br>
+
+	if (solveNQUtil(board, 0) == false) <br>
+	{<br>
+		cout << "Solution does not exist";<br>
+		return false;<br>
+	}<br>
+
+	printSolution(board);<br>
+	return true;<br>
+}<br>
+int main()<br>
+{<br>
+	solveNQ();<br>
+	return 0;<br>
+}<br>
+OUTPUT:<br>
+![image](https://user-images.githubusercontent.com/98145023/163772808-b60570d9-e375-416d-8e16-76193d74ed00.png)<br>
+		
