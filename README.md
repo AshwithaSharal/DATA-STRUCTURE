@@ -1354,171 +1354,59 @@ OUTPUT:<br>
 
 	
 #include<iostream><br>
-#include<cstdlib><br>
-#include<string><br>
-#include<cstdio><br>
+#include<limits.h> <br>
 using namespace std;<br>
-const int TABLE_SIZE = 128;<br>
- 
-/*<br>
- * HashEntry Class Declaration<br>
- */<br>
-class HashEntry<br>
-{<br>
-    public:<br>
-        int key;<br>
-        int value;<br>
-        HashEntry(int key, int value)<br>
-        {<br>
-            this->key = key;<br>
-            this->value = value;<br>
-        }<br>
-};<br>
- 
-/*<br>
- * HashMap Class Declaration<br>
- */<br>
-class HashMap<br>
-{<br>
-    private:<br>
-        HashEntry **table;<br>
-    public:<br>   
-        HashMap()<br>
-	{<br>
-            table = new HashEntry * [TABLE_SIZE];<br>
-            for (int i = 0; i< TABLE_SIZE; i++)<br>
-            {<br>
-                table[i] = NULL;<br>
-            }<br>
-        }<br>
-        /*<br>
-         * Hash Function<br>
-         */<br>
-        int HashFunc(int key)<br>
-        {<br>
-            return key % TABLE_SIZE;<br>
-        }<br>
-        /*<br>
-         * Insert Element at a key<br>
-         */<br>
-	void Insert(int key, int value)<br>
-	{<br>
-            int hash = HashFunc(key);<br>
-            while (table[hash] != NULL && table[hash]->key != key)<br>
-            {<br>
-                hash = HashFunc(hash + 1);<br>
-            }<br>
-            if (table[hash] != NULL)<br>
-                delete table[hash];<br>
-            table[hash] = new HashEntry(key, value);<br>
-	}<br>
-        /*<br>
-         * Search Element at a key<br>
-         */<br>
-        int Search(int key)<br>
-	{<br>
-	    int  hash = HashFunc(key);<br>
-	    while (table[hash] != NULL && table[hash]->key != key)<br>
-	    {<br>
-	        hash = HashFunc(hash + 1);<br>
-	    }<br>
-	    if (table[hash] == NULL)<br>
-	        return -1;<br>
-	    else<br>
-	        return table[hash]->value;<br>
-        }<br>
- 
-        /*<br>
-         * Remove Element at a key<br>
-         */<br>
-        void Remove(int key)<br>
-	{<br>
-	    int hash = HashFunc(key);<br>
-	    while (table[hash] != NULL)<br>
-	    {<br>
-	        if (table[hash]->key == key)<br>
-	            break;<br>
-	        hash = HashFunc(hash + 1);<br>
-	    }<br>
-            if (table[hash] == NULL)<br>
-	    {<br>
-                cout<<"No Element found at key "<<key<<endl;<br>
-                return;<br>
-            }<br>
-            else<br>
-            {<br>
-                delete table[hash];<br>
-            }<br>
-            cout<<"Element Deleted"<<endl;<br>
-        }<br>
-        ~HashMap()<br>
-	{<br>
-            for (int i = 0; i < TABLE_SIZE; i++)<br>
-            {<br>
-                if (table[i] != NULL)<br>
-                    delete table[i];<br>
-                delete[] table;<br>
-            }<br>
-        }<br>
-};<br>
-/*<br>
- * Main Contains Menu<br>
- */<br>
-int main()<br>
-{<br><br>
-    HashMap hash;<br>
-    int key, value;<br>
-    int choice;<br>
-    while (1)<br>
-    {<br>
-        cout<<"\n----------------------"<<endl;<br>
-        cout<<"Operations on Hash Table"<<endl;<br>
-        cout<<"\n----------------------"<<endl;<br>
-        cout<<"1.Insert element into the table"<<endl;<br>
-        cout<<"2.Search element from the key"<<endl;<br>
-        cout<<"3.Delete element at a key"<<endl;<br>
-        cout<<"4.Exit"<<endl;<br>
-        cout<<"Enter your choice: ";<br>
-        cin>>choice;<br>
-        switch(choice)<br>
-        {<br>
-        case 1:<br>
-            cout<<"Enter element to be inserted: ";<br>
-            cin>>value;<br>
-            cout<<"Enter key at which element to be inserted: ";<br>
-            cin>>key;<br>
-            hash.Insert(key, value);<br>
-            break;<br>
-        case 2:<br>
-            cout<<"Enter key of the element to be searched: ";<br>
-            cin>>key;<br>
-            if (hash.Search(key) == -1)<br>
-            {<br>
-	        cout<<"No element found at key "<<key<<endl;<br>
-	        continue;<br>
-	    }<br>
-	    else<br>
-	    {<br>
-	        cout<<"Element at key "<<key<<" : ";<br>
-	        cout<<hash.Search(key)<<endl;<br><br>
-	    }<br>
-            break;<br>
-        case 3:<br>
-            cout<<"Enter key of the element to be deleted: ";<br>
-            cin>>key;<br>
-            hash.Remove(key);<br>
-            break;<br>
-        case 4:<br>
-            exit(1);<br>
-        default:<br>
-           cout<<"\nEnter correct option\n";<br>
-       }<br>
-    }<br>
-    return 0;<br>
+void Insert(int ary[],int hFn, int Size)<br>{ 
+ int element,pos,n=0; <br>
+cout<<"Enter key element to insert\n";<br>
+cin>>element;<br>
+pos = element%hFn; <br>
+while(ary[pos]!= INT_MIN) { <br>
+if(ary[pos]== INT_MAX)<br>
+ break; <br>
+pos = (pos+1)%hFn; <br>
+n++;<br>
+if(n==Size)<br>
+ break; <br>
+} <br>
+if(n==Size)<br>
+ cout<<"Hash table was full of elements\nNo Place to insert this element\n\n";<br> 
+else<br>
+ ary[pos] = element; <br>
+} <br>
+void display(int ary[],int Size){ <br>
+int i;<br>
+ <br>cout<<"Index\tValue\n";<br>
+for(i=0;i<Size;i++)<br>
+ cout<<i<<"\t"<<ary[i]<<"\n"; <br>
+} <br>
+int main(){<br>
+int Size,hFn,i,choice; <br>
+cout<<"Enter size of hash table\n";<br>
+cin>>Size;<br>
+hFn=Size;<br>
+int ary[Size];<br>
+for(i=0;i<Size;i++)<br>
+ ary[i]=INT_MIN; <br>
+do{ <br>
+cout<<"Enter your choice\n"; <br>
+cout<<" 1-> Insert\n 2-> Display\n 0-> Exit\n";<br>
+cin>>choice;<br>
+switch(choice){<br>
+case 1:<br>
+Insert(ary,hFn,Size);<br>
+break; <br>
+case 2:<br>
+display(ary,Size);<br>
+break; <br>
+default:<br><br>
+cout<<"Enter correct choice\n";<br>
+break;<br> 
+} <br>
+}while(choice);<br>
+return 0;<br>
 }<br>
-	OUTPUT:<br>
-	![image](https://user-images.githubusercontent.com/98145023/163171688-0be2678a-d3c8-4850-96ba-3ca6c6ee659d.png)<br>
-	![image](https://user-images.githubusercontent.com/98145023/163171834-374bc3cc-51f6-4d64-9e54-e6e5ed6c97fc.png)<br>
-
-
+OUTPUT:<br>
+![image](https://user-images.githubusercontent.com/98145023/163770441-45230300-4d83-4a8c-ba79-50d7d42b8aa6.png)<br>
+![image](https://user-images.githubusercontent.com/98145023/163770339-c97624e6-bc5e-4f1f-8b39-8393a7d6e54d.png)<br>
 	
