@@ -1417,70 +1417,100 @@ OUTPUT:<br>
 	
 
 	
-	
-Nqueen<br>
-#include <bits/stdc++.h><br>
-#define N 4<br>
+Nqueen<br>	
+//program to solve the n queen problem <br><br>
+//grid[][] is represent the 2-d array with value(0 and 1) for grid[i][j]=1 means queen i are placed at j column.<br>
+//we can take any number of queen , for this time we take the atmost 10 queen (grid[10][10]).<br>
+#include<iostream><br>
 using namespace std;<br>
-void printSolution(int board[N][N])<br>
+int grid[100][100];<br>
+//print the solution<br>
+void print(int n) <br>
 {<br>
-	for (int i = 0; i < N; i++) <br>
+    for (int i = 0;i <= n-1; i++) <br>
 	{<br>
-		for (int j = 0; j < N; j++)<br>
-			cout << " " << board[i][j] << " ";<br>
-	}<br>
-}<br>
-bool isSafe(int board[N][N], int row, int col)<br>
-{<br>
-	int i, j;<br>
-	for (i = 0; i < col; i++)<br>
-		if (board[row][i])<br>
-			return false;<br>
-	for (i = row, j = col; i >= 0 && j >= 0; i--, j--)<br>
-		if (board[i][j])<br>
-			return false;<br>
-	for (i = row, j = col; j >= 0 && i < N; i++, j--)<br>
-		if (board[i][j])<br>
-			return false;<br>
-return true;<br>
-}<br>
-bool solveNQUtil(int board[N][N], int col)<br>
-{<br>
-	if (col >= N)<br>
-		return true;<br>
-for (int i = 0; i < N; i++)<br>
-	 {<br>
-if (isSafe(board, i, col)) <br>
+        for (int j = 0;j <= n-1; j++) <br>
 		{<br>
-			board[i][col] = 1;<br>
-			if (solveNQUtil(board, col + 1))<br>
-				return true;<br>
-board[i][col] = 0;<br>
-		}<br>
-	}<br>
-return false;<br>
+            cout <<grid[i][j]<< " ";<br>
+             }<br>
+        cout<<endl;<br>
+    }<br>
+    cout<<endl;<br>
+    cout<<endl;<br>
 }<br>
-bool solveNQ()<br>
+//function for check the position is safe or not<br>
+//row is indicates the queen no. and col represents the possible positions<br>
+bool isSafe(int col, int row, int n) <br>
 {<br>
-	int board[N][N] = { { 0, 0, 0, 0 },<br>
-						{ 0, 0, 0, 0 },<br>
-						{ 0, 0, 0, 0 },<br>
-						{ 0, 0, 0, 0 } };<br>
-if (solveNQUtil(board, 0) == false) <br>
+  //check for same column<br>
+	 for (int i = 0; i < row; i++) <br>
 	{<br>
-		cout << "Solution does not exist";<br>
-		return false;<br>
-	}<br>
-
-	printSolution(board);<br>
-	return true;<br>
+        if (grid[i][col]) <br>
+		{<br>
+            return false;<br>
+        }<br>
+    }<br>
+    //check for upper left diagonal<br>
+    for (int i = row,j = col;i >= 0 && j >= 0; i--,j--) <br>
+	{<br>
+        if (grid[i][j]) <br>
+		{<br>
+            return false;<br>
+        }<br>
+    }<br>
+    //check for upper right diagonal<br>
+    for (int i = row, j = col; i >= 0 && j < n; j++, i--) <br>
+	{<br>
+        if (grid[i][j]) <br>
+		{<br>
+            return false;<br>
+        }<br>
+    }<br>
+    return true;<br>
+}<br>
+//function to find the position for each queen<br>
+//row is indicates the queen no. and col represents the possible positions<br>
+bool solve (int n, int row)<br> 
+{<br>
+    if (n == row) <br>
+	{<br>
+        print(n);<br>
+        return true;<br>
+    }<br>
+    //variable res is use for possible backtracking <br>
+    bool res = false;<br>
+    for (int i = 0;i <=n-1;i++) <br>
+	{<br>
+        if (isSafe(i, row, n)) <br>
+		{<br>
+            grid[row][i] = 1;<br>
+            //recursive call solve(n, row+1) for next queen (row+1)<br>
+            res = solve(n, row+1) || res;//if res ==false then backtracking will occur <br>
+            //by assigning the grid[row][i] = 0<br>
+            grid[row][i] = 0;<br>
+        }<br>
+    }<br>
+    return res;<br>
 }<br>
 int main()<br>
 {<br>
-	solveNQ();<br>
-	return 0;<br>
+  int n;<br>
+        cout<<"Enter the number of queen"<<endl;<br>
+        cin >> n;<br>
+        for (int i = 0;i < n;i++)<br> {<br>
+            for (int j = 0;j < n;j++) <br>{<br>
+                grid[i][j] = 0;<br>
+            }<br>
+        }<br>
+        bool res = solve(n, 0);<br>
+        if(res == false)<br> {<br>
+            cout << "No solution"<< endl; //if there is no possible solution<br>
+        }<br> else<br> {<br>
+            cout << endl;<br>
+        }<br>
+  return 0;<br>
 }<br>
 OUTPUT:<br>
-![image](https://user-images.githubusercontent.com/98145023/163772808-b60570d9-e375-416d-8e16-76193d74ed00.png)<br><br><br>
+![image](https://user-images.githubusercontent.com/98145023/163946845-85e2b035-de15-456b-84f1-b8d9866ff94c.png)<br>
+![image](https://user-images.githubusercontent.com/98145023/163946993-b2eedb4b-5303-4830-be9b-6ca6da2d2102.png)<br>
 
-		
