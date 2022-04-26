@@ -2078,4 +2078,73 @@ cout<<a[i]<<endl;<br>
 getch();<br>
 }<br>
 OUTPUT:<br>
-![image](https://user-images.githubusercontent.com/98145023/165242597-2518cdd6-12b4-4a07-a700-b34d46a23cc7.png)<br>
+![image](https://user-images.githubusercontent.com/98145023/165242597-2518cdd6-12b4-4a07-a700-b34d46a23cc7.png)<br><be><br>
+	
+	
+	
+BFS DFS<br>
+#include<iostream><br>
+#include<vector><br>
+#include<queue><br>
+#include<stack><br>
+using namespace std;<br>
+void edge(vector<int>adj[],int u,int v){<br>
+  adj[u].push_back(v);<br>
+}<br>
+void bfs(int s,vector<int>adj[],bool visit[]){<br>
+  queue<int>q;<br>
+  q.push(s);<br>
+  visit[s]=true;<br>
+  while(!q.empty()){<br>
+    int u=q.front();<br>
+    cout<<u<<" ";<br>
+    q.pop();<br>
+    for(int i=0;i<adj[u].size();i++){<br>
+      if(!visit[adj[u][i]]){<br>
+        q.push(adj[u][i]);<br>
+        visit[adj[u][i]]=true;<br>
+      }<br>
+    }<br>
+  }<br>
+}<br>
+void dfs(int s,vector<int>adj[],bool visit[]){<br>
+  stack<int>stk;<br>
+  stk.push(s);<br>
+  visit[s]=true;<br>
+  while(!stk.empty()){<br>
+    int u=stk.top();<br>
+    cout<<u<<" ";<br>
+    stk.pop();<br><br>
+
+    for(int i=0;i<adj[u].size();i++){<br>
+      if(!visit[adj[u][i]]){<br>
+        stk.push(adj[u][i]);<br>
+        visit[adj[u][i]]=true;<br>
+      }<br>
+    }<br>
+  }<br>
+}<br>
+int main(){<br>
+  vector<int>adj[5];<br>
+  bool visit[5];<br>
+  for(int i=0;i<5;i++){<br>
+    visit[i]=false;<br>
+  }<br>
+  edge(adj,0,2);<br>
+  edge(adj,0,1);<br>
+  edge(adj,1,3);<br>
+  edge(adj,2,0);<br>
+  edge(adj,2,3);<br>
+  edge(adj,2,4);<br>
+  cout<<"BFS traversal is"<<"  ";<br>
+  bfs(0,adj,visit);<br>
+  cout<<endl;<br>
+  for(int i=0;i<5;i++){<br>
+    visit[i]=false;<br>
+  }<br>
+  cout<<"DFS traversal is"<<"  ";<br>
+  dfs(0,adj,visit);<br>
+}<br>
+OUTPUT:<br>
+![image](https://user-images.githubusercontent.com/98145023/165246628-04765081-e790-4d6f-9eef-3f665e23871c.png)<br><br><br>
+
