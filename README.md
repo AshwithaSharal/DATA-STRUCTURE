@@ -1946,5 +1946,90 @@ Choose one option from the following list ...
 8.Show
 9.Exit
 
-Enter your choice?
+Enter your choice?<br><br><br>
+	
+
+
+MERGESORT<br>
+#include <iostream><br>
+using namespace std;<br>
+// A function to merge the two half into a sorted data.<br>
+void Merge(int *a, int low, int high, int mid)<br>
+{<br>
+// We have low to mid and mid+1 to high already sorted.<br>
+int i, j, k, temp[high-low+1];<br>
+i = low;<br>
+k = 0;<br>
+j = mid + 1;<br>
+// Merge the two parts into temp[].<br>
+while (i <= mid && j <= high)<br>
+{<br>
+if (a[i] < a[j])<br>
+{<br>
+temp[k] = a[i];<br>
+k++;<br>
+i++;<br>
+}<br>
+else<br>
+{<br>
+temp[k] = a[j];<br>
+k++;<br>
+j++;<br>
+}<br>
+}<br>
+// Insert all the remaining values from i to mid into temp[].<br>
+while (i <= mid)<br>
+{<br>
+temp[k] = a[i];<br>
+k++;<br>
+i++;<br>
+}<br>
+// Insert all the remaining values from j to high into temp[].<br>
+while (j <= high)<br>
+{<br>
+temp[k] = a[j];<br>
+k++;<br>
+j++;<br>
+}<br>
+// Assign sorted data stored in temp[] to a[].<br>
+for (i = low; i <= high; i++)<br>
+{<br>
+a[i] = temp[i-low];<br>
+}<br>
+}<br>
+// A function to split array into two parts.<br>
+void MergeSort(int *a, int low, int high)<br>
+{<br>
+int mid;<br>
+if (low < high)<br>
+{<br>
+mid=(low+high)/2;<br>
+// Split the data into two half.<br>
+MergeSort(a, low, mid);<br>
+MergeSort(a, mid+1, high);<br>
+// Merge them to get sorted output.<br>
+Merge(a, low, high, mid);<br>
+}<br>
+}<br>
+int main()<br>
+{<br>
+int n, i;<br>
+cout<<"\nEnter the number of data element to be sorted: ";<br>
+cin>>n;<br>
+int arr[n];<br>
+for(i = 0; i < n; i++)<br>
+{<br>
+cout<<"Enter element : ";<br>
+cin>>arr[i];<br>
+}<br>
+MergeSort(arr, 0, n-1);<br>
+// Printing the sorted data.<br>
+cout<<"\nSorted Data ";<br>
+for (i = 0; i < n; i++)<br>
+cout<<"->"<<arr[i];<br>
+return 0;<br>
+}<br>
+OUTPUT:<br>
+![image](https://user-images.githubusercontent.com/98145023/165239624-717f5b4c-69fa-40ef-a1cc-acd2c52a21ca.png)<br><br><br>
+		   
 
