@@ -727,8 +727,8 @@ OUTPUT:<br>
 	
 	
 	
-	Write a C++ program to split the given linked list in such a way that the given element's position should be the first node of second list<br>
-	#include<iostream><br>
+Write a C++ program to split the given linked list in such a way that the given element's position should be the first node of second list<br>
+#include<iostream><br>
 using namespace std;<br>
 struct Node <br>
 {<br>
@@ -756,15 +756,15 @@ int main()<br>
 	cout<<"Enter elements:"<<endl;<br>
 	for(i=0;i<n;i++)<br>
 	{<br>
-		cin>>ele;<br>
-		insert(ele);<br>
+	     cin>>ele;<br>
+	     insert(ele);<br>
 	}<br>
 	cout<<"\nList of elements:"<<endl;<br>
 	Node *t;<br>
 	t=head;<br>
 	while(t!=NULL)<br>
 	{<br>
-		cout<<t->value<<"\t";<br>
+	 cout<<t->value<<"\t";<br>
 		t=t->next;<br>
 	}<br>
 	cout<<"\n\nEnter the element you want the list to split";<br>
@@ -779,7 +779,7 @@ int main()<br>
 	{<br>
 		if(i==splitlndex-1)<br>
 		{<br>
-			Node *tN;<br>
+	                Node *tN;<br>
 			tN=temp->next;<br>
 			sHead=tN;<br>
 			temp->next=NULL;<br>
