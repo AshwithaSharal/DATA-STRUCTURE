@@ -1780,7 +1780,8 @@ void double_llist::display_dlist()<br>
         q = q->next;<br>
     }<br>
     cout<<"NULL"<<endl;<br>
-}<br>
+}<br><br><br>
+output:<br>
  
 Choose one option from the following list ...
 
