@@ -2033,3 +2033,49 @@ OUTPUT:<br>
 ![image](https://user-images.githubusercontent.com/98145023/165239624-717f5b4c-69fa-40ef-a1cc-acd2c52a21ca.png)<br><br><br>
 		   
 
+
+MINHEAP<br>
+#include <iostream><br>
+#include <conio.h><br>
+using namespace std;<br>
+void min_heap(int *a, int m, int n){<br>
+int j, t;<br>
+t= a[m];<br>
+j = 2 * m;<br>
+while (j <= n) {<br>
+if (j < n && a[j+1] < a[j])<br>
+j = j + 1;<br>
+if (t < a[j])<br>
+break;<br>
+else if (t >= a[j]) {<br>
+a[j/2] = a[j];<br>
+j = 2 * j;<br>
+}<br>
+}<br>
+a[j/2] = t;<br>
+return;<br>
+}<br>
+void build_minheap(int *a, int n) {<br>
+int k;<br>
+for(k = n/2; k >= 1; k--) {<br>
+min_heap(a,k,n);<br>
+}<br>
+}<br>
+int main() {<br>
+int n, i;<br>
+cout<<"enter no of elements of array\n";<br>
+cin>>n;<br>
+int a[30];<br>
+for (i = 1; i <= n; i++) {<br>
+cout<<"enter element"<<" "<<(i)<<endl;<br>
+cin>>a[i];<br>
+}<br>
+build_minheap(a, n);<br>
+cout<<"Min Heap\n";<br>
+for (i = 1; i <= n; i++) {<br>
+cout<<a[i]<<endl;<br>
+}<br>
+getch();<br>
+}<br>
+OUTPUT:<br>
+![image](https://user-images.githubusercontent.com/98145023/165242597-2518cdd6-12b4-4a07-a700-b34d46a23cc7.png)<br>
