@@ -2213,3 +2213,146 @@ cout<<"The maximum array element is "<<max;<br>
 }<br>
 OUTPUT:<br>
 ![image](https://user-images.githubusercontent.com/98145023/165248818-b4011098-959a-4ff4-aace-9a8b0df4573a.png)<br><br><br>
+	
+	
+BINARYSEARCHTREE<br>
+#include<iostream><br>
+using namespace std;<br>
+struct node<br>
+{<br>
+	int info;<br>
+	struct node*left;<br>
+	struct node*right;<br>
+}*root;<br>
+class BST <br>
+{ <br>
+ public: <br>
+ void insert(node *, node *); <br>
+ void inorder(node *); <br>
+ void postorder(node *); <br>
+ void display(node *, int); <br>
+ BST() <br>
+ { <br>
+ root = NULL; <br>
+ } <br>
+};<br>
+int main() <br>
+{ <br>
+ int choice, num; <br>
+ BST bst;<br> 
+ node *temp; <br>
+ while (1) <br>
+ { <br>
+cout<<"1.Insert Element "<<endl; <br>
+ cout<<"2.Inorder Traversal"<<endl;  <br>
+ cout<<"3.Display"<<endl; <br>
+ cout<<"4.Quit"<<endl; <br>
+ cout<<"Enter your choice : "; <br>
+ cin>>choice; <br>
+ switch(choice) <br>
+ { <br>
+ case 1: <br>
+ temp = new node; <br>
+ cout<<"Enter the number to be inserted : "; <br>
+ cin>>temp->info; <br>
+ bst.insert(root, temp); <br>
+ break;  <br>
+ case 2: <br>
+ cout<<"Inorder Traversal of BST:"<<endl; <br>
+ bst.inorder(root); <br>
+ cout<<endl; <br>
+ break; <br>
+ case 3: 
+ cout<<"Display BST:"<<endl; <br>
+ bst.display(root,1); <br>
+ cout<<endl; <br>
+ break; <br>
+ case 4: <br>
+ exit(1); <br>
+ default: <br>
+ cout<<"Wrong choice"<<endl; <br>
+ } <br>
+ } <br>
+} <br>
+void BST::insert(node *tree, node *newnode) <br>
+{ <br>
+ if (root == NULL) <br>
+ { <br>
+ root = new node; <br>
+ root->info = newnode->info; <br>
+ root->left = NULL; <br>
+ root->right = NULL; <br>
+ cout<<"Root Node is Added"<<endl; <br>
+ return; <br>
+ } <br>
+ if (tree->info == newnode->info) <br>
+ { <br>
+ cout<<"Element already in the tree"<<endl; <br>
+ return; <br>
+ } <br>
+ if (tree->info > newnode->info) <br>
+{ <br>
+ if (tree->left != NULL) <br>
+ { <br>
+ insert(tree->left, newnode); <br>
+ } 
+ else <br>
+ { <br>
+ tree->left = newnode; <br>
+ (tree->left)->left = NULL; <br>
+ (tree->left)->right = NULL; <br>
+ cout<<"Node Added To Left"<<endl; <br>
+ return; <br>
+ } <br>
+ } <br>
+ else <br>
+ { <br>
+ if (tree->right != NULL) <br>
+ { <br>
+ insert(tree->right, newnode); <br>
+ } <br>
+ else <br>
+ { <br>
+ tree->right = newnode; <br>
+ (tree->right)->left = NULL; <br>
+ (tree->right)->right = NULL; <br>
+ cout<<"Node Added To Right"<<endl; <br>
+ return; <br>
+ } <br>
+ } <br>
+} <br>
+void BST::inorder(node *ptr) <br>
+{ <br>
+ if (root == NULL) <br>
+ { <br>
+ cout<<"Tree is empty"<<endl; <br>
+ return; <br>
+ } <br>
+ if (ptr != NULL) <br>
+ { <br>
+ inorder(ptr->left); <br>
+ cout<<ptr->info<<" "; <br>
+ inorder(ptr->right); <br>
+ } <br>
+} <br>
+void BST::display(node *ptr, int level) <br>
+{ <br>
+ int i; <br>
+ if (ptr != NULL) <br>
+ { <br>
+ display(ptr->right, level+1); <br>
+ cout<<endl; <br>
+ if (ptr == root) <br>
+ cout<<"Root->: "; <br>
+ else <br>
+ { <br>
+ for (i = 0;i < level;i++) <br>
+ cout<<" "; <br>
+ } <br>
+ cout<<ptr->info; <br>
+ display(ptr->left, level+1); <br>
+ } <br>
+}<br>
+OUTPUT:<br>
+![image](https://user-images.githubusercontent.com/98145023/165251115-51bdccfd-beec-4f9d-80f6-abb4ca2caf59.png)<br><br><br>
+
