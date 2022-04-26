@@ -1782,3 +1782,168 @@ void double_llist::display_dlist()<br>
     cout<<"NULL"<<endl;<br>
 }<br>
  
+Choose one option from the following list ...
+
+1.Insert in begining
+2.Insert at last
+3.Insert at any random location
+4.Delete from Beginning
+5.Delete from last
+6.Delete the node after the given data
+7.Search
+8.Show
+9.Exit
+
+Enter your choice?
+1
+
+Enter Item value2
+
+Node inserted
+
+Choose one option from the following list ...
+
+1.Insert in begining
+2.Insert at last
+3.Insert at any random location
+4.Delete from Beginning
+5.Delete from last
+6.Delete the node after the given data
+7.Search
+8.Show
+9.Exit
+
+Enter your choice?
+1
+
+Enter Item value3
+
+Node inserted
+
+Choose one option from the following list ...
+
+1.Insert in begining
+2.Insert at last
+3.Insert at any random location
+4.Delete from Beginning
+5.Delete from last
+6.Delete the node after the given data
+7.Search
+8.Show
+9.Exit
+
+Enter your choice?
+1
+
+Enter Item value4
+
+Node inserted
+
+Choose one option from the following list ...
+
+1.Insert in begining
+2.Insert at last
+3.Insert at any random location
+4.Delete from Beginning
+5.Delete from last
+6.Delete the node after the given data
+7.Search
+8.Show
+9.Exit
+
+Enter your choice?
+2
+
+Enter value7
+
+node inserted
+
+Choose one option from the following list ...
+
+1.Insert in begining
+2.Insert at last
+3.Insert at any random location
+4.Delete from Beginning
+5.Delete from last
+6.Delete the node after the given data
+7.Search
+8.Show
+9.Exit
+
+Enter your choice?
+8
+
+ printing values...
+4
+3
+2
+7
+
+Choose one option from the following list ...
+
+1.Insert in begining
+2.Insert at last
+3.Insert at any random location
+4.Delete from Beginning
+5.Delete from last
+6.Delete the node after the given data
+7.Search
+8.Show
+9.Exit
+
+Enter your choice?
+2
+
+Enter value9
+
+node inserted
+
+Choose one option from the following list ...
+
+1.Insert in begining
+2.Insert at last
+3.Insert at any random location
+4.Delete from Beginning
+5.Delete from last
+6.Delete the node after the given data
+7.Search
+8.Show
+9.Exit
+
+Enter your choice?
+5
+
+node deleted
+
+Choose one option from the following list ...
+
+1.Insert in begining
+2.Insert at last
+3.Insert at any random location
+4.Delete from Beginning
+5.Delete from last
+6.Delete the node after the given data
+7.Search
+8.Show
+9.Exit
+
+Enter your choice?
+8
+
+ printing values...
+4
+
+Choose one option from the following list ...
+
+1.Insert in begining
+2.Insert at last
+3.Insert at any random location
+4.Delete from Beginning
+5.Delete from last
+6.Delete the node after the given data
+7.Search
+8.Show
+9.Exit
+
+Enter your choice?
+
