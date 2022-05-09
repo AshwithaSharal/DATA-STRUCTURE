@@ -2520,10 +2520,9 @@ int Graph::kruskalMST()<br>
 			cout << u << " - " << v << endl;<br>
 			mst_wt += it->first;<br>
 			ds.merge(set_u, set_v);<br>
-		}<br>
 	}<br>
-
-	return mst_wt;<br>
+	}<br>
+return mst_wt;<br>
 }<br>
 
 int main()<br>
@@ -2547,10 +2546,8 @@ int main()<br>
 
 	cout << "Edges of MST are \n";<br>
 	int mst_wt = g.kruskalMST();<br>
-
-	cout << "\nWeight of MST is " << mst_wt;<br>
-
-	return 0;<br>
+cout << "\nWeight of MST is " << mst_wt;<br>
+return 0;<br>
 }<br>
 OUTPUT:<br>
 ![image](https://user-images.githubusercontent.com/98145023/167393429-11abfeb1-6b50-47a7-bc73-81a6397c717c.png)<br><br><br>
