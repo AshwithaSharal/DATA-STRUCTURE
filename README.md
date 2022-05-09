@@ -2442,6 +2442,7 @@ int main()<br>
  
     return 0;<br>
 }<br>
+OUTPUT:<br>
 ![image](https://user-images.githubusercontent.com/98145023/167390998-90b5a299-18f5-4a31-b961-d7cbe19ae826.png)<br><br><br>
 
 
