@@ -2356,3 +2356,92 @@ void BST::display(node *ptr, int level) <br>
 OUTPUT:<br>
 ![image](https://user-images.githubusercontent.com/98145023/165251115-51bdccfd-beec-4f9d-80f6-abb4ca2caf59.png)<br><br><br>
 
+	
+	
+PROGRAM TO COUNT THE NUMBER OF CONNECTED COMPONENTS IN AN UNDIRECTED GRAPH<br>	
+#include <iostream><br>	
+#include <list><br>	
+using namespace std;<br>	
+ 
+// Graph class represents a undirected graph using adjacency list representation<br>
+class Graph {<br>
+    int V; // No. of vertices<br>
+ 
+    // Pointer to an array containing adjacency lists<br>
+    list<int>* adj;<br>
+ 
+    // A function used by DFS<br>
+    void DFSUtil(int v, bool visited[]);<br>
+ 
+public:<br>
+    Graph(int V); // Constructor<br>
+    ~Graph();<br>
+    void addEdge(int v, int w);<br>
+    void connectedComponents();<br>
+};<br>
+ 
+// Method to print connected components in an undirected graph<br>
+void Graph::connectedComponents()<br>
+{<br>
+    // Mark all the vertices as not visited<br>
+    bool* visited = new bool[V];<br>
+    for (int v = 0; v < V; v++)<br>
+        visited[v] = false;<br>
+ 
+    for (int v = 0; v < V; v++) {<br>
+        if (visited[v] == false) {<br>
+            // print all reachable vertices<br>
+            // from v
+            DFSUtil(v, visited);<br>
+ 
+            cout << "\n";<br>
+        }<br>
+    }<br>
+    delete[] visited;<br>
+}<br>
+ 
+void Graph::DFSUtil(int v, bool visited[])<br>
+{<br>
+    // Mark the current node as visited and print it<br>
+    visited[v] = true;<br>
+    cout << v << " ";<br>
+ 
+    // Recur for all the vertices adjacent to this vertex<br>
+    list<int>::iterator i;<br>
+    for (i = adj[v].begin(); i != adj[v].end(); ++i)<br>
+        if (!visited[*i])<br>
+            DFSUtil(*i, visited);<br>
+}<br>
+ 
+Graph::Graph(int V)<br>
+{<br>
+    this->V = V;<br>
+    adj = new list<int>[V];<br>
+}<br>
+ 
+Graph::~Graph() { delete[] adj; }<br>
+ 
+// method to add an undirected edge<br>
+void Graph::addEdge(int v, int w)<br>
+{<br>
+    adj[v].push_back(w);<br>
+    adj[w].push_back(v);<br>
+}<br>
+ 
+// Driver code<br>
+int main()<br>
+{<br>
+    // Create a graph given in the above diagram<br>
+    Graph g(5); // 5 vertices numbered from 0 to 4<br>
+    g.addEdge(1, 0);<br>
+    g.addEdge(2, 3);<br>
+    g.addEdge(3, 4);<br>
+ 
+    cout << "Following are connected components \n";<br>
+    g.connectedComponents();<br>
+ 
+    return 0;<br>
+}<br>
+![image](https://user-images.githubusercontent.com/98145023/167390998-90b5a299-18f5-4a31-b961-d7cbe19ae826.png)<br><br><br>
+
+
