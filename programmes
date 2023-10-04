@@ -63,3 +63,3006 @@ int main()
  
     return 0;
 }
+
+
+#BST
+# include <iostream> 
+# include <cstdlib> 
+using namespace std; 
+struct node 
+{ 
+ int info; 
+ struct node *left; 
+ struct node *right; 
+}*root; 
+class BST 
+{ 
+	 public: 
+	 void find(int, node **, node **); 
+	 void insert(node *, node *); 
+	 void del(int); 
+	 void case_a(node *,node *); 
+	 void case_b(node *,node *); 
+	 void case_c(node *,node *); 
+	 void preorder(node *); 
+	 void inorder(node *); 
+	 void postorder(node *); 
+	 void display(node *, int); 
+ 	 BST() 
+ 	 { 
+		root = NULL; 
+         } 
+ }; 
+int main() 
+{ 
+	 int choice, num; 
+	 BST bst; 
+	 node *temp; 
+	 while (1) 
+     { 
+		 cout<<"-----------------"<<endl; 
+		 cout<<"Operations on BST"<<endl; 
+		 cout<<"-----------------"<<endl; 
+		 cout<<"1.Insert Element "<<endl; 
+		 cout<<"2.Delete Element "<<endl; 
+		 cout<<"3.Inorder Traversal"<<endl; 
+		 cout<<"4.Preorder Traversal"<<endl; 
+		 cout<<"5.Postorder Traversal"<<endl; 
+		 cout<<"6.Display"<<endl; 
+		 cout<<"7.Quit"<<endl; 
+		 cout<<"Enter your choice : "; 
+		 cin>>choice; 
+                 switch(choice) 
+		 { 
+			 case 1: 
+			 temp = new node; 
+			 cout<<"Enter the number to be inserted : "; 
+			 cin>>temp->info; 
+			 bst.insert(root, temp); 
+			 break; 
+			 case 2: 
+			 if (root == NULL) 
+			 { 
+				 cout<<"Tree is empty, nothing to delete"<<endl; 
+				 continue; 
+ 			 } 
+			 cout<<"Enter the number to be deleted : "; 
+			 cin>>num; 
+			 bst.del(num); 
+			 break; 
+			 case 3: 
+			 cout<<"Inorder Traversal of BST:"<<endl; 
+			 bst.inorder(root); 
+			 cout<<endl; 
+			 break; 
+			 case 4: 
+			 cout<<"Preorder Traversal of BST:"<<endl; 
+			 bst.preorder(root); 
+			 cout<<endl; 
+			 break; 
+			 case 5: 
+			 cout<<"Postorder Traversal of BST:"<<endl; 
+			 bst.postorder(root); 
+			 cout<<endl; 
+			 break; 
+			 case 6: 
+			 cout<<"Display BST:"<<endl; 
+			 bst.display(root,1); 
+			 cout<<endl; 
+			 break; 
+			 case 7: 
+			 exit(1); 
+			 default: 
+			 cout<<"Wrong choice"<<endl; 
+	         } 
+       } 
+} 
+void BST::find(int item, node **par, node **loc) 
+{ 
+    node *ptr, *ptrsave; 
+    if (root == NULL) 
+    { 
+	 *loc = NULL; 
+	 *par = NULL; 
+ 	 return; 
+    } 
+    if (item == root->info) 
+    { 
+	 *loc = root; 
+	 *par = NULL; 
+ 	 return; 
+    } 
+	 if (item < root->info) 
+	 ptr = root->left; 
+	 else 
+	 ptr = root->right; 
+	 ptrsave = root; 
+	 while (ptr != NULL) 
+ 	{ 
+ 	if (item == ptr->info) 
+	 { 
+	 *loc = ptr; 
+	 *par = ptrsave; 
+	 return; 
+     } 
+	 ptrsave = ptr; 
+	 if (item < ptr->info) 
+	 ptr = ptr->left; 
+	 else 
+	 ptr = ptr->right; 
+    } 
+	 *loc = NULL; 
+	 *par = ptrsave; 
+ } 
+
+void BST::insert(node *tree, node *newnode) 
+{ 
+ if (root == NULL) 
+ { 
+	 root = new node; 
+	 root->info = newnode->info; 
+	 root->left = NULL; 
+	 root->right = NULL; 
+	 cout<<"Root Node is Added"<<endl; 
+ 	 return; 
+ } 
+ if (tree->info == newnode->info) 
+ { 
+   cout<<"Element already in the tree"<<endl; 
+   return; 
+ } 
+ if (tree->info > newnode->info) 
+ { 
+  if (tree->left != NULL) 
+  { 
+   insert(tree->left, newnode); 
+  } 
+  else 
+  { 
+	 tree->left = newnode; 
+	 (tree->left)->left = NULL; 
+	 (tree->left)->right = NULL; 
+	 cout<<"Node Added To Left"<<endl; 
+	 return; 
+  }  
+} 
+ else 
+ { 
+  if (tree->right != NULL) 
+  { 
+   insert(tree->right, newnode); 
+  } 
+  else 
+  { 
+   tree->right = newnode; 
+   (tree->right)->left = NULL; 
+   (tree->right)->right = NULL; 
+   cout<<"Node Added To Right"<<endl; 
+   return; 
+  } 
+ } 
+} 
+
+void BST::del(int item) 
+{ 
+  node *parent, *location; 
+  if (root == NULL) 
+  { 
+   cout<<"Tree empty"<<endl; 
+   return; 
+  } 
+  find(item, &parent, &location); 
+  if (location == NULL) 
+  { 
+   cout<<"Item not present in tree"<<endl; 
+   return; 
+  } 
+  if (location->left == NULL && location->right == NULL) 
+  case_a(parent, location); 
+  if (location->left != NULL && location->right == NULL) 
+  case_b(parent, location); 
+  if (location->left == NULL && location->right != NULL) 
+  case_b(parent, location); 
+  if (location->left != NULL && location->right != NULL) 
+  case_c(parent, location); 
+  free(location); 
+} 
+ 
+
+void BST::case_a(node *par, node *loc ) 
+{ 
+  if (par == NULL) 
+  { 
+   root = NULL; 
+  } 
+  else 
+  { 
+   if (loc == par->left) 
+   par->left = NULL; 
+   else 
+   par->right = NULL; 
+  } 
+} 
+ 
+
+void BST::case_b(node *par, node *loc) 
+{ 
+  node *child; 
+  if (loc->left != NULL) 
+  child = loc->left; 
+  else 
+  child = loc->right; 
+  if (par == NULL) 
+  { 
+   root = child; 
+  } 
+  else 
+  { 
+   if (loc == par->left) 
+   par->left = child; 
+   else 
+   par->right = child; 
+  } 
+} 
+ 
+
+void BST::case_c(node *par, node *loc) 
+{ 
+  node *ptr, *ptrsave, *suc, *parsuc; 
+  ptrsave = loc; 
+  ptr = loc->right; 
+  while (ptr->left != NULL) 
+  { 
+    ptrsave = ptr; 
+    ptr = ptr->left; 
+  } 
+  suc = ptr; 
+  parsuc = ptrsave; 
+  if (suc->left == NULL && suc->right == NULL) 
+  case_a(parsuc, suc); 
+  else 
+  case_b(parsuc, suc); 
+  if (par == NULL) 
+  { 
+   root = suc; 
+  } 
+  else 
+  { 
+    if (loc == par->left) 
+    par->left = suc; 
+    else 
+    par->right = suc; 
+  } 
+  suc->left = loc->left; 
+  suc->right = loc->right; 
+} 
+ 
+ 
+void BST::preorder(node *ptr) 
+{ 
+  if (root == NULL) 
+  { 
+    cout<<"Tree is empty"<<endl; 
+    return; 
+  } 
+  if (ptr != NULL) 
+  { 
+   cout<<ptr->info<<" "; 
+   preorder(ptr->left); 
+   preorder(ptr->right); 
+  } 
+} 
+
+void BST::inorder(node *ptr) 
+{ 
+ if (root == NULL) 
+ { 
+  cout<<"Tree is empty"<<endl; 
+  return; 
+ } 
+  if (ptr != NULL) 
+  { 
+    inorder(ptr->left); 
+    cout<<ptr->info<<" "; 
+    inorder(ptr->right); 
+  } 
+} 
+ 
+void BST::postorder(node *ptr) 
+{ 
+ if (root == NULL) 
+ { 
+   cout<<"Tree is empty"<<endl; 
+   return; 
+ } 
+ if (ptr != NULL) 
+ { 
+   postorder(ptr->left); 
+   postorder(ptr->right); 
+   cout<<ptr->info<<" "; 
+ } 
+} 
+ 
+void BST::display(node *ptr, int level) 
+{ 
+ int i; 
+ if (ptr != NULL) 
+ { 
+   display(ptr->right, level+1); 
+   cout<<endl; 
+   if (ptr == root) 
+   cout<<"Root->: "; 
+   else 
+   { 
+     for (i = 0;i < level;i++) 
+     cout<<" "; 
+   } 
+   cout<<ptr->info; 
+   display(ptr->left, level+1); 
+ } 
+}
+
+
+
+
+
+#DFS
+#include <bits/stdc++.h>
+using namespace std;
+class Graph
+{
+public:
+map<int, bool> visited;
+map< int, list<int> > adj;
+void addEdge(int v, int w);
+void DFS(int v);
+};
+void Graph::addEdge(int v, int w)
+{
+adj[v].push_back(w); 
+adj[w].push_back(v);
+}
+void Graph::DFS(int v)
+{
+visited[v] = true;
+cout << v << " ";
+list<int>::iterator i;
+for (i = adj[v].begin(); i != adj[v].end(); ++i)
+if (!visited[*i])
+DFS(*i);
+}
+int main()
+{
+Graph g;
+
+g.addEdge(3, 4);
+g.addEdge(3, 5);
+g.addEdge( 4,2);
+g.addEdge(4, 9);
+cout << "Following is Depth First Traversal"
+" (starting from vertex 2) \n";
+g.DFS(3);
+return 0;
+}
+
+
+
+
+#HeapSort
+#include <iostream>
+using namespace std;
+void MaxHeapify (int a[], int i, int n)
+{
+	int j, temp;
+	temp = a[i];
+	j = 2*i;
+	while (j <= n)
+	{
+		if (j < n && a[j+1] > a[j])
+		j = j+1;
+		if (temp > a[j])
+			break;
+		else if (temp <= a[j])
+		{
+			a[j/2] = a[j];
+			j = 2*j;
+		}
+	}
+	a[j/2] = temp;
+	return;
+}
+void HeapSort(int a[], int n)
+{
+	int i, temp;
+	for (i = n; i >= 2; i--)
+	{
+		temp = a[i];
+		a[i] = a[1];
+		a[1] = temp;
+		MaxHeapify(a, 1, i - 1);
+	}
+}
+void Build_MaxHeap(int a[], int n)
+{
+	int i;
+	for(i = n/2; i >= 1; i--)
+		MaxHeapify(a, i, n);
+}
+int main()
+{
+int n, i,arr[100];
+	cout<<"\nEnter the number of data element to be sorted: ";
+	cin>>n;
+	n++;
+	for(i=1;i<n;i++)
+	 {
+	 cout<<"Enter element"<<i<<":";
+	 cin>>arr[i];
+	 }
+	Build_MaxHeap(arr, n-1);
+	HeapSort(arr, n-1);
+	cout<<"\nSorted Data ";
+	for (i = 1; i < n; i++)
+		cout<<" "<<arr[i];
+	return 0;
+}
+
+
+
+#MinHeapSort
+
+#include <iostream> 
+using namespace std; 
+  
+// To heapify a subtree rooted with node i which is 
+// an index in arr[]. n is size of heap 
+void heapify(int arr[], int n, int i) 
+{ 
+    int smallest = i; // Initialize smalles as root 
+    int l = 2 * i + 1; // left = 2*i + 1 
+    int r = 2 * i + 2; // right = 2*i + 2 
+  
+    // If left child is smaller than root 
+    if (l < n && arr[l] < arr[smallest]) 
+        smallest = l; 
+  
+    // If right child is smaller than smallest so far 
+    if (r < n && arr[r] < arr[smallest]) 
+        smallest = r; 
+  
+    // If smallest is not root 
+    if (smallest != i) { 
+        swap(arr[i], arr[smallest]); 
+  
+        // Recursively heapify the affected sub-tree 
+        heapify(arr, n, smallest); 
+    } 
+} 
+  
+// main function to do heap sort 
+void heapSort(int arr[], int n) 
+{ 
+    // Build heap (rearrange array) 
+    for (int i = n / 2 - 1; i >= 0; i--) 
+        heapify(arr, n, i); 
+  
+    // One by one extract an element from heap 
+    for (int i = n - 1; i >= 0; i--) { 
+        // Move current root to end 
+        swap(arr[0], arr[i]); 
+  
+        // call max heapify on the reduced heap 
+        heapify(arr, i, 0); 
+    } 
+} 
+  
+/* A utility function to print array of size n */
+void printArray(int arr[], int n) 
+{ 
+    for (int i = 0; i < n; ++i) 
+        cout << arr[i] << " "; 
+    cout << ""; 
+} 
+  
+// Driver program 
+int main() 
+{ 
+    int arr[] = { 16, 6, 398, 12, 9 }; 
+    int n = sizeof(arr) / sizeof(arr[0]); 
+  
+    heapSort(arr, n); 
+  
+    cout << "Sorted array is :"; 
+    printArray(arr, n); 
+} 
+
+
+
+#SUmOfSubsets
+#include <iostream>
+#include<limits.h>
+using namespace std;
+class Subset
+{
+	public:
+    void printSum(int result[], int front, int tail)
+    {
+    	cout << "{";
+		for (int i = front; i < tail; ++i)
+		{
+			if (result[i] != INT_MAX)
+			{
+				cout << " " << result[i] << " ";
+			}
+		}
+		cout << "}\n";
+	}
+	void subsetSum(int arr[], int result[], int sum, int size, int current_sum, int location)
+	{
+		if (location == -1)
+		{
+			return;
+		}
+		this->subsetSum(arr, result, sum, size, current_sum, location - 1);
+		result[location] = arr[location];
+		if (current_sum + arr[location] == sum)
+		{
+			this->printSum(result, location, size);
+		}
+		this->subsetSum(arr, result, sum, size, current_sum + arr[location], location - 1);
+		result[location] = INT_MAX;
+	}
+	void findSubset(int arr[], int size, int sum)
+	{
+		if (size <= 0)
+		{
+			return;
+		}
+		int result[size];
+		for (int i = 0; i < size; ++i)		
+		{
+			result[i] = INT_MAX;
+		}
+		cout << "Subset Sum of " << sum << " is \n";
+		this->subsetSum(arr, result, sum, size, 0, size - 1);
+	}
+};
+int main()
+{
+	Subset task = Subset();
+	int n;
+	cout<<"Enter the size of the array\n";
+	cin>>n;
+	int arr[n]={};
+	cout<<"Enter the array element:"<<endl;
+	for(int i=0;i<n;i++)
+	{
+		cin>>arr[i];
+	}
+	int size = sizeof(arr) / sizeof(arr[0]);
+int sum;
+cout<<"Enter the sum element: "<<endl;
+cin>>sum;
+task.findSubset(arr, size, sum);
+return 0;
+}
+
+
+
+#MaxHeap
+#include<iostream>
+using namespace std;
+void max_heap(int *a, int m,int n)
+{
+	int j,t;
+	t=a[m];
+	j=2*m;
+	while(j<=n)
+	{
+		if(j < n && a[j+1] > a[j])
+		j=j+1;
+		if(t>a[j])
+		 break;
+		 else if (t <= a[j]) {
+         a[j / 2] = a[j];
+         j = 2 * j;
+	}
+}
+a[j/2]=t;
+return;
+}
+
+
+void build_maxheap(int *a,int n)
+{
+	int k;
+	for(k=n/2;k>=1;k--)
+	{
+		max_heap(a,k,n);
+	}
+}
+int main()
+{
+
+int n,i;
+cout<<"Enter the no of elements\n";
+cin>>n;
+int a[30];
+for(i=1;i<=n;i++)
+{
+	cout<<"Enter elements"<<" "<<(i)<<endl;
+	cin>>a[i];
+}
+build_maxheap(a,n);
+cout<<"Max Heap\n";
+for(i=1;i<=n;i++)
+{
+	cout<<a[i]<<endl;
+}
+}
+
+
+
+#MinHeap
+#include <iostream>
+#include <conio.h>
+using namespace std;
+void min_heap(int *a, int m, int n){
+   int j, t;
+   t= a[m];
+   j = 2 * m;
+   while (j <= n) {
+      if (j < n && a[j+1] < a[j])
+         j = j + 1;
+      if (t < a[j])
+         break;
+      else if (t >= a[j]) {
+         a[j/2] = a[j];
+         j = 2 * j;
+      }
+   }
+   a[j/2] = t;
+   return;
+}
+void build_minheap(int *a, int n) {
+   int k;
+   for(k = n/2; k >= 1; k--) {
+      min_heap(a,k,n);
+   }
+}
+int main() {
+   int n, i;
+   cout<<"enter no of elements of array\n";
+   cin>>n;
+   int a[30];
+   for (i = 1; i <= n; i++) {
+      cout<<"enter element"<<" "<<(i)<<endl;
+      cin>>a[i];
+   }
+   build_minheap(a, n);
+   cout<<"Min Heap\n";
+   for (i = 1; i <= n; i++) {
+      cout<<a[i]<<endl;
+   }
+   getch();
+}
+
+
+#SinglyLinkedList
+#include<iostream>
+#include<cstdlib>
+using namespace std;
+struct node
+{
+	int info;
+	struct node *next;
+} *start;
+class sll
+{
+	public:
+		node* create_node(int);
+		void insert_begin();
+		void insert_last();
+		void insert_pos();
+		void delete_last();
+		void delete_begin();
+		void delete_pos();
+		void update_last();
+		void update_begin();
+		void update_pos();
+		void sort();
+		void reverse();
+		void search();
+		void display();
+		sll()
+		{
+			start=NULL;
+		}
+		
+};
+int main()
+{
+	int choice;
+	sll s1,s2;
+	start=NULL;
+	do
+	{
+		cout<<"----------------------------------"<<endl;
+		cout<<"Operations on singly linked list"<<endl;
+		cout<<"----------------------------------"<<endl;
+		cout<<"1.Insert at First"<<endl;
+		cout<<"2.Insert at Last"<<endl;
+		cout<<"3.Insert at Position"<<endl;
+		cout<<"4.Delete at First"<<endl;
+		cout<<"5.Delete at Last"<<endl;
+		cout<<"6.Delete at Position"<<endl;
+		cout<<"7.Update at First"<<endl;
+		cout<<"8.Update at Last"<<endl;
+		cout<<"9.Update at Positions"<<endl;
+		cout<<"10.Ascending Order"<<endl;
+		cout<<"11.Descending Order"<<endl;
+		cout<<"12.Search"<<endl;
+		cout<<"13.Display"<<endl;
+		cout<<"14.Exit"<<endl;
+		cout<<"Enter your choice"<<endl;
+		cin>>choice;
+		switch(choice)
+		{
+			case 1: s1.insert_begin();
+				s1.display();
+				break;
+			case 2: s1.insert_last();
+				s1.display();
+				break;
+			case 3: s1.insert_pos();
+				s1.display();
+				break;	
+			case 4: s1.delete_begin();
+				s1.display();
+				break;	
+			case 5: s1.delete_last();
+				s1.display();
+				break;	
+			case 6: s1.delete_pos();
+				s1.display();
+				break;	
+			case 7: s1.update_begin();
+				s1.display();
+				break;	
+			case 8: s1.update_last();
+				s1.display();
+				break;
+			case 9: s1.update_pos();
+				s1.display();
+				break;	
+			case 10: s1.sort();
+				s1.display();
+				break;	
+			case 11: s1.reverse();
+				s1.display();
+				break;	
+			case 12: s1.search();
+				s1.display();
+				break;	
+			case 13: s1.display();
+				break;
+			case 14: exit(0);
+				break;	
+		}
+	}
+	while(choice!=14);
+		
+}
+node *sll::create_node(int value)
+{
+	struct node *temp, *s;
+	temp=new(struct node);
+	if(temp==NULL)
+	{
+		cout<<"Memory not allocated"<<endl;
+		return 0;
+	}
+	else
+	{
+		temp->info=value;
+		temp->next=NULL;
+		return temp;
+	}
+}
+void sll::insert_begin()
+{
+	int value;
+	cout<<"Enter the value to be inserted: "<<endl;
+	cin>>value;
+	struct node *temp,*s;
+	temp=create_node(value);
+	if(start==NULL)
+	{
+		start=temp;
+		start->next=NULL;
+		cout<<temp->info<<"is inserted in the empty list"<<endl;
+	}
+	else
+	{
+		s=start;
+		start=temp;
+		start->next=s;
+		cout<<temp->info<<"is inserted at first"<<endl;
+		
+	}
+}
+void sll::insert_last()
+{
+	int value;
+	cout<<"Enter the value to be inserted: ";
+	cin>>value;
+	struct node *temp, *s;
+	temp=create_node(value);
+	if(start==NULL)
+	{
+		start=temp;
+		start->next=NULL;
+		cout<<temp->info<<"is inserted in the empty list"<<endl;
+	}
+	else
+	{
+		s=start;
+		while(s->next!=NULL)
+		{
+			s=s->next;
+		}
+		temp->next=NULL;
+		s->next=temp;
+		cout<<temp->info<<"is inserted at last"<<endl;
+		
+	}
+	
+	
+}
+void sll::insert_pos()
+{
+	int value,pos,counter=0,loc=1;
+	struct node *temp, *s, *ptr ;
+	s=start;
+	while(s!=NULL)
+	{
+     	s=s->next;
+		counter++;	
+	}
+	if(counter==0)
+	{
+	}
+	else
+	{
+		cout<<"Enter the position from"<<loc<<"to"<<counter+1<<":";
+		cin>>pos;
+		s=start;
+		if(pos==1)
+		{
+			cout<<"Enter the value to be inserted: ";
+		 	cin>>value;
+			temp=create_node(value);
+			start=temp;
+			start->next=s;
+			cout<<temp->info<<"is inserted at first"<<endl;
+			
+		}
+		else if(pos>1 && pos<=counter)
+		{
+			cout<<"Enter the value to be inserted: ";
+		 	cin>>value;
+			temp=create_node(value);
+			for(int i=1; i<pos; i++)
+			{
+				ptr=s;
+				s=s->next;
+				
+			}
+			ptr->next=temp;
+			temp->next=s;
+			cout<<temp->info<<"is inserted at position"<<pos<<endl;
+		}
+		else if(pos==counter+1)
+		{
+			cout<<"Enter the value to be inserted: ";
+		 	cin>>value;	
+		 	temp=create_node(value);
+		 	while(s->next!=NULL)
+		 	{
+		 		s=s->next;
+		 		
+			}
+			temp->next=NULL;
+			s->next=temp;
+			cout<<temp->info<<"is inserted at last"<<endl;
+		}
+		else
+		{
+			cout<<"Position out of range...!"<<endl;
+		}
+	}
+}
+void sll::delete_begin()
+{
+	if(start==NULL)
+	{
+	}
+	else 
+	{
+		struct node *s, *ptr ;
+		s=start;
+		start=s->next;
+		cout<<s->info<<"deleted from first"<<endl;
+		free(s);
+	}
+}
+void sll::delete_last()
+{
+	int i, counter=0;
+	struct node *s, *ptr ;
+	if(start==NULL)
+		{
+		}
+	else 
+	{
+		s=start;
+		while(s!=NULL)
+		{
+			s=s->next;
+			counter++;		
+		}
+		s=start;
+		if(counter==1)
+		{
+			start=s->next;
+			cout<<s->info<<"deleted from last"<<endl;
+			free(s);
+		}
+		else
+		{
+			for(int i=1;i<counter;i++)
+			{
+				ptr=s;
+				s=s->next;
+			}
+			ptr->next=s->next;
+			cout<<s->info<<"deleted from last"<<endl;
+			free(s);
+		}
+	}
+}
+void sll::delete_pos()
+{
+	int pos, i, counter=0, loc=1;
+	struct node *s, *ptr ;
+	s=start;
+	while(s!=NULL)
+		{
+			s=s->next;
+			counter++;		
+		}
+		if(counter==0)
+		{
+		}
+		else
+		{
+			if(counter==1)
+			{
+				cout<<"Enter the position[SAY"<<loc<<"]:";
+				cin>>pos;
+				s=start;
+				if(pos==1)
+				{
+				start=s->next;
+				cout<<s->info<<"deleted from last"<<endl;
+				free(s);	
+				}
+				else
+				cout<<"Position out of range...!"<<endl;
+				free(s);
+			}
+			else
+			{
+				cout<<"Enter the position from"<<loc<<"to"<<counter<<":";
+				cin>>pos;
+				s=start;
+				if(pos==1)
+				{
+				start=s->next;
+				cout<<s->info<<"deleted from first"<<endl;
+				free(s);	
+				}
+				else if(pos>1 && pos<=counter)
+				{
+					for(i=1;i<pos;i++)
+					{
+						
+					ptr=s;
+					s=s->next;
+					}
+					ptr->next=s->next;
+					if(pos==counter)
+				{
+				
+				cout<<s->info<<"deleted from last"<<endl;
+				free(s);
+				}
+				else
+				{
+					cout<<s->info<<"deleted from position"<<pos<<endl;
+					free(s);
+				}
+				}
+				else
+				cout<<"Position out of range...! "<<endl;
+			}
+		}
+}
+void sll::update_begin()
+{
+	
+	int pos=1, value, i, counter=0;
+	struct node *s, *ptr ;
+	s=start;
+	while(s!=NULL)
+		{
+			s=s->next;
+			counter++;		
+		}
+		if(counter==0)
+		{
+		}
+		else if(pos==1)
+		{
+			cout<<"Enter the new node:";
+			cin>>value;
+			start->info=value;
+			cout<<"Node updated at first position:"<<pos<<"="<<start->info<<endl;
+		
+		}
+}
+void sll::update_last()
+{
+	int pos, value, i, counter=0;
+	struct node *s, *ptr ;
+	s=start;
+	while(s!=NULL)
+		{
+			s=s->next;
+			counter++;		
+		}
+		s=start;
+			if(counter==0)
+		{
+		}
+		else
+		{
+			cout<<"Enter the new node: ";
+			cin>>value;
+			for(i=1;i<counter;i++)
+			{
+				s=s->next;
+			}
+			s->info=value;
+			cout<<"Node updated at last position:"<<counter<<"="<<s->info<<endl;
+			
+		
+		}
+}
+void sll::update_pos()
+{
+	int value,pos,i,counter=0,loc=1;
+	struct node *s, *ptr ;
+	s=start;
+	while(s!=NULL)
+		{
+			s=s->next;
+			counter++;		
+		}
+		if(counter==0)
+		{
+		}
+		else
+		{
+			if(counter==1)
+			{
+				cout<<"Enter the position[SAY"<<loc<<"]:";
+				cin>>pos;
+				s=start;
+				if(pos==1)
+				{
+					cout<<"Enter the new node: ";
+					cin>>value;
+					start->info=value;
+					cout<<"Node updated at position:"<<pos<<"="<<start->info<<endl;
+					
+			
+				}
+				else
+				{
+				 	cout<<"Position out of range...!"<<endl;
+				}
+			}
+			else
+			{
+				cout<<"Enter the position from"<<loc<<"to"<<counter<<":";
+				cin>>pos;
+				s=start;
+				if(pos==1)
+				{
+					cout<<"Enter the new node: ";
+					cin>>value;
+					start->info=value;
+					cout<<"Node updated at position:"<<pos<<"="<<start->info<<endl;
+					
+				}
+					else if(pos>1 && pos<=counter)
+					{
+						cout<<"Enter the new node: ";
+						cin>>value;
+						for(i=1;i<pos;i++)
+						{
+						s=s->next;	
+						}
+							s->info=value;
+							cout<<"Node updated at position:"<<pos<<"="<<s->info<<endl;
+							
+					
+					}
+					else
+					cout<<"Position out of range...!"<<endl;
+					
+			}
+		}
+		
+}
+void sll::sort()
+	{
+		struct node *s, *ptr ;
+		int value;
+		if(start==NULL)
+		{
+		}
+		else
+		{
+			ptr=start;
+			while(ptr!=NULL)
+			{
+				for(s=ptr->next;s!=NULL;s=s->next)
+				{
+					if(ptr->info>s->info)
+					{
+						value=ptr->info;
+						ptr->info=s->info;
+						s->info=value;
+					}
+				}
+				ptr=ptr->next;
+				
+			}
+		}
+	}
+void sll::reverse()
+{
+	struct node *s, *ptr ;
+		int value;
+		if(start==NULL)
+		{
+		}
+		else
+		{
+			ptr=start;
+			while(ptr!=NULL)
+			{
+				for(s=ptr->next;s!=NULL;s=s->next)
+				{
+					if(ptr->info<s->info)
+					{
+						value=ptr->info;
+						ptr->info=s->info;
+						s->info=value;
+					}
+				}
+				ptr=ptr->next;
+           }
+		}
+}
+void sll::search()
+{
+	int value, loc=0, pos=0, counter=0;
+	struct node *s;
+	s=start;
+	while(s!=NULL)
+	{
+		s=s->next;	
+		counter++;
+	}
+	if(start==NULL)
+	{
+	}
+	else
+	{
+	
+	cout<<"Enter the value to be searched: ";
+	cin>>value;
+	struct node *s;
+	s=start;
+	while(s!=NULL)
+	{
+		pos++;
+		if(s->info==value)
+		{
+			loc++;
+			if(loc==1)
+			cout<<"Element"<<value<<"is found at position"<<pos;
+			else if(loc<=counter)
+			
+			cout<<" , "<<pos;
+		}
+	s=s->next;
+	}
+	cout<<endl;
+	if(loc==0)
+	cout<<"Element"<<value<<"is not found in the list"<<endl;
+}
+	
+}
+void sll::display()
+{
+	struct node *temp;
+	if(start==NULL)
+	cout<<"Linked list is empty...!"<<endl;
+	else
+	{
+		cout<<"Linked list contains:";
+		temp=start;
+		while(temp!=NULL)
+		{
+			cout<<temp->info<<" ";
+			temp=temp->next;
+		}
+		cout<<endl;
+	}
+}
+	
+
+
+#SplitLinkedList
+#include<iostream>
+using namespace std;
+struct Node
+{
+	int value;
+	struct Node *next;
+};
+struct Node* head = NULL;
+struct Node* sHead = NULL;
+struct Node* temp = NULL;
+void insert(int new_data)
+{
+	struct Node* new_node = new Node(); 
+	new_node->value = new_data;
+	new_node->next = head;
+	head = new_node;
+}
+int n;
+int ele;
+int splitIndex;
+int main()
+{
+int i;
+cout<<"Enter number of elements you want in the list\t";
+cin>>n;
+cout<<"Enter elements :" <<endl;
+for(i=0;i<n;i++)
+{
+	cin>>ele;
+	insert(ele);
+}
+cout<<"\nList of elements : "<<endl;
+Node *t;
+t = head;
+while(t != NULL)
+{
+	cout<<t->value<<"\t";
+	t = t->next;
+}
+cout<<"\n\nEnter the position you want the list to split ";
+cin>>splitIndex;
+while(splitIndex < 0 || splitIndex > n-1)
+{
+	cout<<"Invalid position. Try again."<<endl;
+	cin>>splitIndex;
+}
+temp = head;
+for(i=0;i<=splitIndex;i++)
+{
+	if(i==splitIndex-1)
+	{
+	Node *tN;
+	tN = temp->next;
+	sHead = tN;
+	temp->next = NULL;
+	break;
+	}
+  temp = temp->next;
+}
+temp = head;
+if(temp == NULL)
+{
+ cout<<"\nFirst list is empty"<<endl;
+} 
+else 
+  {
+ 	cout<<"\n\nFirst list element "<<endl;
+	while(temp != NULL)
+	{
+	cout<<temp->value<<"\t";
+	temp = temp->next;
+	}
+  }
+temp = sHead;
+if(temp == NULL)
+{
+	cout<<"\nSecond list is empty"<<endl;
+}
+else
+  {
+	cout<<"\n\nSecond list elements "<<endl;
+	while(temp != NULL)
+	{
+	cout<<temp->value<<"\t";
+	temp = temp->next;
+    }
+}
+return 0;
+}
+
+
+
+#DoublyLinkedList
+#include<iostream>
+#include<cstdio>
+#include<cstdlib>
+using namespace std;
+struct node
+{
+    int info;
+    struct node *next;
+    struct node *prev;
+}*start;
+class double_llist
+{
+    public:
+        void create_list(int value);
+        void add_begin(int value);
+        void add_after(int value, int position);
+        void delete_element(int value);
+        void search_element(int value);
+        void display_dlist();    
+        double_llist()
+        {
+            start = NULL;  
+        }
+};
+ int main()
+{
+    int choice, element, position;
+    double_llist dl;
+    while (1)
+    {
+        cout<<endl<<"----------------------------"<<endl;
+        cout<<endl<<"Operations on Doubly linked list"<<endl;
+        cout<<endl<<"----------------------------"<<endl;        
+        cout<<"1.Create Node"<<endl;
+        cout<<"2.Add at begining"<<endl;
+        cout<<"3.Add after position"<<endl;
+        cout<<"4.Delete"<<endl;
+        cout<<"5.Display"<<endl;
+        cout<<"6.Quit"<<endl;
+        cout<<"Enter your choice : ";
+        cin>>choice;
+        switch ( choice )
+        {
+        case 1:
+            cout<<"Enter the element: ";
+            cin>>element;
+            dl.create_list(element);
+            cout<<endl;
+            break;
+        case 2:
+            cout<<"Enter the element: ";
+            cin>>element;
+            dl.add_begin(element);
+            cout<<endl;
+            break;
+        case 3:
+            cout<<"Enter the element: ";
+            cin>>element;
+            cout<<"Insert Element after postion: ";
+            cin>>position;
+            if(position<=0)
+            {
+            	cout<<"Invalid position";
+            	break;
+			}
+            dl.add_after(element, position);
+            cout<<endl;
+            break;
+        case 4:
+            if (start == NULL)
+            {                      
+                cout<<"List empty,nothing to delete"<<endl;  
+                break;
+            }
+            cout<<"Enter the element for deletion: ";
+            cin>>element;
+            dl.delete_element(element);
+            cout<<endl;
+            break;
+        case 5:
+            dl.display_dlist();
+            cout<<endl;
+            break;
+        case 6:
+            exit(1);
+        default:
+            cout<<"Wrong choice"<<endl;
+        }
+    }
+    return 0;
+}
+ void double_llist::create_list(int value)
+{
+    struct node *s, *temp;
+    temp = new(struct node);
+    temp->info = value;
+    temp->next = NULL;
+    if (start == NULL)
+    {
+        temp->prev = NULL;
+        start = temp;
+    }
+    else
+    {
+        s = start;
+        while (s->next != NULL)
+            s = s->next;
+        s->next = temp;
+        temp->prev = s;
+    }
+}
+ void double_llist::add_begin(int value)
+{
+    if (start == NULL)
+    {
+        cout<<"First Create the list."<<endl;
+        return;
+    }
+    struct node *temp;
+    temp = new(struct node);
+    temp->prev = NULL;
+    temp->info = value;
+    temp->next = start;
+    start->prev = temp;
+    start = temp;
+    cout<<"Element Inserted"<<endl;
+}
+void double_llist::add_after(int value, int pos)
+{
+    if (start == NULL)
+    {
+        cout<<"First Create the list."<<endl;
+        return;
+    }
+    struct node *tmp, *q;
+    int i;
+    q = start;
+    for (i = 0;i < pos - 1;i++)
+    {
+        q = q->next;
+        if (q == NULL)
+        {
+            cout<<"There are less than ";
+            cout<<pos<<" elements."<<endl;
+            return;
+        }
+    }
+    tmp = new(struct node);
+    tmp->info = value;
+    if (q->next == NULL)
+    {
+        q->next = tmp;
+        tmp->next = NULL;
+        tmp->prev = q;      
+    }
+    else
+    {
+        tmp->next = q->next;
+        tmp->next->prev = tmp;
+        q->next = tmp;
+        tmp->prev = q;
+    }
+    cout<<"Element Inserted"<<endl;
+}
+ void double_llist::delete_element(int value)
+{
+    struct node *tmp, *q;
+        if (start->info == value)
+    {
+        tmp = start;
+        start = start->next;  
+        start->prev = NULL;
+        cout<<"Element Deleted"<<endl;
+        free(tmp);
+        return;
+    }
+    q = start;
+    while (q->next->next != NULL)
+    {  
+               if (q->next->info == value)  
+        {
+            tmp = q->next;
+            q->next = tmp->next;
+            tmp->next->prev = q;
+            cout<<"Element Deleted"<<endl;
+            free(tmp);
+            return;
+        }
+        q = q->next;
+    }
+        if (q->next->info == value)    
+    {
+        tmp = q->next;
+        free(tmp);
+        q->next = NULL;
+        cout<<"Element Deleted"<<endl;
+        return;
+    }
+    cout<<"Element "<<value<<" not found"<<endl;
+}
+ void double_llist::display_dlist()
+{
+    struct node *q;
+    if (start == NULL)
+    {
+        cout<<"List empty,nothing to display"<<endl;
+        return;
+    }
+    q = start;
+    cout<<"The Doubly Link List is :"<<endl;
+    while (q != NULL)
+    {
+        cout<<q->info<<" <-> ";
+        q = q->next;
+    }
+    cout<<"NULL"<<endl;
+}
+
+
+
+
+#Hashing
+#include<iostream>
+#include<limits.h>
+using namespace std;
+void Insert(int ary[],int hFn, int Size)
+{
+	int element,pos,n=0;
+    cout<<"Enter key element to insert\n";
+    cin>>element;
+    pos = element%hFn; 
+    while(ary[pos]!= INT_MIN) 
+    {
+    	if(ary[pos]== INT_MAX)
+        break;
+        pos = (pos+1)%hFn;
+        n++;
+        if(n==Size)
+        break;    
+	}
+	 if(n==Size)
+       cout<<"Hash table was full of elements\nNo Place to insert this element\n\n";
+       else
+       ary[pos] = element; 
+}
+ void display(int ary[],int Size)
+ {
+ 	 int i;
+     cout<<"Index\tValue\n";
+     for(i=0;i<Size;i++)
+     cout<<i<<"\t"<<ary[i]<<"\n";
+ }
+ int main()
+ {
+ 	int Size,hFn,i,choice;
+    cout<<"Enter size of hash table\n";
+    cin>>Size;
+    hFn=Size;
+    int ary[Size];
+    for(i=0;i<Size;i++)
+    ary[i]=INT_MIN; 
+    do
+    {
+    	cout<<"Enter your choice\n";
+        cout<<" 1-> Insert\n 2-> Display\n 0-> Exit\n";
+        cin>>choice;
+        switch(choice)
+        {
+        	 case 1:
+       		 Insert(ary,hFn,Size);
+	         break;
+	         case 2:
+	         display(ary,Size);
+	         break;
+	         default:
+	         cout<<"Enter correct choice\n";
+	         break;
+		}
+	}
+	while(choice);
+	return 0;
+ }
+
+
+
+
+#MergeSort
+#include <iostream>
+#include<conio.h>
+using namespace std;
+void Merge(int *a, int low, int high, int mid)
+{
+	int i, j, k, temp[high-low+1];
+	i = low;
+	k = 0;
+    j = mid + 1;
+    while (i <= mid && j <= high)
+	{
+		if (a[i] < a[j])
+		{
+			temp[k] = a[i];
+			k++;
+			i++;
+		}
+		else
+		{
+			temp[k] = a[j];
+			k++;
+			j++;
+		}
+	}
+	while (i <= mid)
+	{
+		temp[k] = a[i];
+		k++;
+		i++;
+	}
+	while (j <= high)
+	{
+		temp[k] = a[j];
+		k++;
+		j++;
+	}
+	for (i = low; i <= high; i++)
+	{
+		a[i] = temp[i-low];
+	}
+}
+void MergeSort(int *a, int low, int high)
+{
+	int mid;
+	if (low < high)
+	{
+		mid=(low+high)/2;
+		MergeSort(a, low, mid);
+	    MergeSort(a, mid+1, high);
+		Merge(a, low, high, mid);
+	}
+}
+int main()
+{
+	int n, i;
+	cout<<"\nEnter the number of data element to be sorted: ";
+	cin>>n;
+	int arr[n];
+	for(i = 0; i < n; i++)
+	{
+		cout<<"Enter element "<<i+1<<": ";
+		cin>>arr[i];
+	}
+        MergeSort(arr, 0, n-1);
+		cout<<"\nSorted Data ";
+	    for (i = 0; i < n; i++)
+        cout<<"->"<<arr[i];
+        getch();
+}
+
+
+
+#NQueens
+//program to solve the n queen problem 
+//grid[][] is represent the 2-d array with value(0 and 1) for grid[i][j]=1 means queen i are placed at j column.
+//we can take any number of queen , for this time we take the atmost 10 queen (grid[10][10]).
+#include<iostream>
+using namespace std;
+int grid[100][100];
+//print the solution
+void print(int n) {
+    for (int i = 0;i <= n-1; i++) 
+    {
+        for (int j = 0;j <= n-1; j++)
+        {
+            cout <<grid[i][j]<< " ";
+        }
+        cout<<endl;
+    }
+    cout<<endl;
+    cout<<endl;
+}
+//function for check the position is safe or not
+//row is indicates the queen no. and col represents the possible positions
+bool isSafe(int col, int row, int n) 
+{
+  //check for same column
+    for (int i = 0; i < row; i++)
+    {
+        if (grid[i][col])
+        {
+            return false;
+        }
+    }
+    //check for upper left diagonal
+    for (int i = row,j = col;i >= 0 && j >= 0; i--,j--)
+    {
+        if (grid[i][j])
+        {
+            return false;
+        }
+    }
+    //check for upper right diagonal
+    for (int i = row, j = col; i >= 0 && j < n; j++, i--)
+    {
+        if (grid[i][j])
+        {
+            return false;
+        }
+    }
+    return true;
+}
+//function to find the position for each queen
+//row is indicates the queen no. and col represents the possible positions
+bool solve (int n, int row)
+{
+    if (n == row)
+    {
+        print(n);
+        return true;
+    }
+    //variable res is use for possible backtracking 
+    bool res = false;
+    for (int i = 0;i <=n-1;i++) 
+    {
+        if (isSafe(i, row, n))
+        {
+            grid[row][i] = 1;
+            //recursive call solve(n, row+1) for next queen (row+1)
+            res = solve(n, row+1) || res;//if res ==false then backtracking will occur 
+            //by assigning the grid[row][i] = 0
+            
+            grid[row][i] = 0;
+        }
+    }
+    return res;
+}
+int main()
+{
+  ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+        int n;
+        cout<<"Enter the number of queen"<<endl;
+        cin >> n;
+        for (int i = 0;i < n;i++)
+        {
+            for (int j = 0;j < n;j++) 
+            {
+                grid[i][j] = 0;
+            }
+        }
+        bool res = solve(n, 0);
+        if(res == false) {
+            cout << -1 << endl; //if there is no possible solution
+        } else {
+            cout << endl;
+        }
+  return 0;
+}
+
+
+
+#ReverseArray
+//program to solve the n queen problem 
+//grid[][] is represent the 2-d array with value(0 and 1) for grid[i][j]=1 means queen i are placed at j column.
+//we can take any number of queen , for this time we take the atmost 10 queen (grid[10][10]).
+#include<iostream>
+using namespace std;
+int grid[100][100];
+//print the solution
+void print(int n) {
+    for (int i = 0;i <= n-1; i++) 
+    {
+        for (int j = 0;j <= n-1; j++)
+        {
+            cout <<grid[i][j]<< " ";
+        }
+        cout<<endl;
+    }
+    cout<<endl;
+    cout<<endl;
+}
+//function for check the position is safe or not
+//row is indicates the queen no. and col represents the possible positions
+bool isSafe(int col, int row, int n) 
+{
+  //check for same column
+    for (int i = 0; i < row; i++)
+    {
+        if (grid[i][col])
+        {
+            return false;
+        }
+    }
+    //check for upper left diagonal
+    for (int i = row,j = col;i >= 0 && j >= 0; i--,j--)
+    {
+        if (grid[i][j])
+        {
+            return false;
+        }
+    }
+    //check for upper right diagonal
+    for (int i = row, j = col; i >= 0 && j < n; j++, i--)
+    {
+        if (grid[i][j])
+        {
+            return false;
+        }
+    }
+    return true;
+}
+//function to find the position for each queen
+//row is indicates the queen no. and col represents the possible positions
+bool solve (int n, int row)
+{
+    if (n == row)
+    {
+        print(n);
+        return true;
+    }
+    //variable res is use for possible backtracking 
+    bool res = false;
+    for (int i = 0;i <=n-1;i++) 
+    {
+        if (isSafe(i, row, n))
+        {
+            grid[row][i] = 1;
+            //recursive call solve(n, row+1) for next queen (row+1)
+            res = solve(n, row+1) || res;//if res ==false then backtracking will occur 
+            //by assigning the grid[row][i] = 0
+            
+            grid[row][i] = 0;
+        }
+    }
+    return res;
+}
+int main()
+{
+  ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+        int n;
+        cout<<"Enter the number of queen"<<endl;
+        cin >> n;
+        for (int i = 0;i < n;i++)
+        {
+            for (int j = 0;j < n;j++) 
+            {
+                grid[i][j] = 0;
+            }
+        }
+        bool res = solve(n, 0);
+        if(res == false) {
+            cout << -1 << endl; //if there is no possible solution
+        } else {
+            cout << endl;
+        }
+  return 0;
+}
+
+
+
+#SumOf2Arrays
+#include<iostream>
+using namespace std;
+int main()
+{
+	int n,sum[10],arr1[10],arr2[10],i;
+	cout<<"Enter size of the array:  ";
+	cin>>n;
+	cout<<"Enter the elements of first array: \n";
+	for(int i=0;i<n;i++)
+	cin>>arr1[i];
+	cout<<"Enter the elements of second array: \n";
+	for(int i=0;i<n;i++)
+	cin>>arr2[i];
+	cout<<"Sum of two array is: ";
+	for(int i=0;i<n;i++)
+	{
+		sum[i]=arr1[i]+arr2[i];
+		cout<<sum[i]<<endl;
+	}
+	return 0;
+}
+
+
+
+#BinarySearch
+#include<iostream>
+using namespace std;
+int main()
+{
+	int i, a[10], n, first, last, middle;
+	cout<<"Enter 10 numbers in ascending order:\n";
+	for(i=0; i<10; i++)
+	cin>>a[i];
+    cout<<"Enter element to be searched: ";
+	cin>>n;
+	first=0;
+	last=9;
+	middle=(first+last)/2;
+	while(first<=last)
+	{
+		if(a[middle]<n)
+		first=middle+1;
+		else if(a[middle]==n)
+		{
+			cout<<"The number "<< n << " is in the position "<< middle+1;
+			break; 
+		}
+		else
+		
+			last=middle-1;
+			middle=(first+last)/2;
+		
+	}
+		if(first>last)
+		cout<<"the number "<<n<<"is not found ";
+		return 0;
+	
+}
+
+
+
+#InserElementIntoList
+#include<iostream>
+using namespace std;
+struct Node{
+int value;
+struct Node *next;
+};
+struct Node* head = NULL;
+struct Node* sHead = NULL;
+struct Node* temp = NULL;
+void insert(int new_data){
+struct Node* new_node = new Node(); 
+new_node->value = new_data;
+new_node->next = head;
+head = new_node;
+}
+int n;
+int ele;
+
+int main(){
+int i;
+cout<<"Enter number of elements you want in the list\t";
+cin>>n;
+cout<<"Enter elements :" <<endl;
+for(i=0;i<n;i++){
+cin>>ele;
+insert(ele);
+}
+cout<<"\nList of elements : "<<endl;
+Node *t;
+t = head;
+while(t != NULL){
+cout<<t->value<<"\t";
+t = t->next;
+}
+}
+
+
+
+#InsertDltBegin
+#include<iostream>
+#include<cstdlib>
+using namespace std;
+struct node
+{
+	int info;
+	struct node *next;
+} *start;
+class single_llist
+{
+	public:
+		node* create_node(int);
+		void insert_begin();
+		void delete_begin();
+		void display();
+		 single_llist() 
+ { 
+ start = NULL; 
+ } 
+}; 
+int main() 
+{ 
+ int choice; 
+ single_llist sl,s2; 
+ start = NULL; 
+ do 
+ { 
+ cout<<"---------------------------------"<<endl; 
+ cout<<"Operations on singly linked list"<<endl; 
+ cout<<"---------------------------------"<<endl; 
+ cout<<"1.Insert at first"<<endl; 
+ cout<<"2.Delete at first"<<endl; 
+cout<<"3.Display"<<endl;
+ cout<<"4.Exit "<<endl; 
+ cout<<"Enter your choice :"; 
+ cin>>choice; 	
+ switch(choice) 
+  { 
+ case 1: sl.insert_begin(); 
+ sl.display(); 
+ break; 
+ case 2: s2.delete_begin(); 
+ sl.display(); 
+ break; 
+ case 3:sl.display(); 
+ break; 
+ case 4:exit(0); 
+ break; 
+ default:cout<<"Wrong choice...???"<<endl; 
+ break; 
+ } 
+ } 
+ while(choice != 4); 
+} 
+node *single_llist::create_node(int value) 
+{ 
+ struct node *temp, *s; 
+ temp = new(struct node); 
+ if (temp == NULL) 
+ { 
+ cout<<"Memory not allocated"<<endl; 
+ return 0; 
+ } 
+ else 
+ { 
+ temp->info = value; 
+ temp->next = NULL; 
+ return temp; 
+ } 
+} 
+void single_llist::insert_begin() 
+{ 
+ int value; 
+ cout<<"Enter the value to be inserted : "; 
+ cin>>value; 
+ struct node *temp, *s; 
+ temp = create_node(value); 
+ if (start == NULL) 
+ { 
+ start = temp; 
+ start->next = NULL; 
+ cout<<temp->info<<" is inserted at first in the empty list"<<endl; 
+ } 
+ else 
+ { 
+ s = start; 
+ start = temp; 
+ start->next = s; 
+ cout<<temp->info<<" is inserted at first"<<endl; 
+ } 
+} 
+void single_llist::delete_begin() 
+{ 
+ if (start == NULL){} 
+ else 
+ { 
+ struct node *s, *ptr; 
+ s = start; 
+ start = s->next; 
+ cout<<s->info<<" deleted from first"<<endl; 
+ free(s); 
+ } 
+} 
+
+void single_llist::display() 
+{ 
+ struct node *temp; 
+ if (start == NULL) 
+ cout<<"Linked list is empty...!!!"<<endl; 
+ else 
+ { 
+ cout<<"Linked list contains : "; 
+ temp = start; 
+ while (temp != NULL) 
+ { 
+ cout<<temp->info<<" "; 
+ temp = temp->next; 
+ } 
+ cout<<endl; 
+ } 
+}
+
+
+
+
+#InsertDltLast
+#include<iostream>
+#include<cstdlib>
+using namespace std;
+struct node
+{
+	int info;
+	struct node *next;
+} *start;
+class single_llist
+{
+	public:
+		node* create_node(int);
+		void insert_last();
+		void delete_last();
+		void display();
+		 single_llist() 
+ { 
+ start = NULL; 
+ } 
+}; 
+int main() 
+{ 
+ int choice; 
+ single_llist sl,s2; 
+ start = NULL; 
+ do 
+ { 
+ cout<<"---------------------------------"<<endl; 
+ cout<<"Operations on singly linked list"<<endl; 
+ cout<<"---------------------------------"<<endl; 
+ cout<<"1.Insert at last"<<endl; 
+ cout<<"2.Delete at last"<<endl; 
+cout<<"3.Display"<<endl;
+ cout<<"4.Exit "<<endl; 
+ cout<<"Enter your choice :"; 
+ cin>>choice; 	
+ switch(choice) 
+  { 
+ case 1: sl.insert_last(); 
+ sl.display(); 
+ break; 
+ case 2: s2.delete_last(); 
+ sl.display(); 
+ break; 
+ case 3:sl.display(); 
+ break; 
+ case 4:exit(0); 
+ break; 
+ default:cout<<"Wrong choice...???"<<endl; 
+ break; 
+ } 
+ } 
+ while(choice != 4); 
+} 
+node *single_llist::create_node(int value) 
+{ 
+ struct node *temp, *s; 
+ temp = new(struct node); 
+ if (temp == NULL) 
+ { 
+ cout<<"Memory not allocated"<<endl; 
+ return 0; 
+ } 
+ else 
+ { 
+ temp->info = value; 
+ temp->next = NULL; 
+ return temp; 
+ } 
+} 
+void single_llist::insert_last() 
+{ 
+ int value; 
+ cout<<"Enter the value to be inserted : "; 
+ cin>>value; 
+ struct node *temp, *s; 
+ temp = create_node(value); 
+ if (start == NULL) 
+ { 
+ start = temp; 
+ start->next = NULL; 
+ cout<<temp->info<<" is inserted at last in the empty list"<<endl; 
+ } 
+ else 
+ { 
+ s = start; 
+ while (s->next != NULL) 
+ { 
+ s = s->next; 
+ } 
+ temp->next = NULL; 
+ s->next = temp; 
+ cout<<temp->info<<" is inserted at last"<<endl; 
+ } 
+} 
+void single_llist::display() 
+{ 
+ struct node *temp; 
+ if (start == NULL) 
+ cout<<"Linked list is empty...!!!"<<endl; 
+ else 
+ { 
+ cout<<"Linked list contains : "; 
+ temp = start; 
+ while (temp != NULL) 
+ { 
+ cout<<temp->info<<" "; 
+ temp = temp->next; 
+ } 
+ cout<<endl; 
+ } 
+}
+
+
+void single_llist::delete_last() 
+{ 
+ int i, counter = 0; 
+ struct node *s, *ptr; 
+ if (start == NULL){} 
+ else 
+ { 
+ s = start; 
+ while (s != NULL) 
+ { 
+ s = s->next; 
+ counter++; 
+ } 
+ s = start; 
+ if (counter == 1) 
+ { 
+ start = s->next; 
+ cout<<s->info<<" deleted from last"<<endl; 
+ free(s); 
+ } 
+ else 
+ { 
+ for (i = 1;i < counter;i++) 
+ { 
+ ptr = s; 
+ s = s->next; 
+ } 
+ ptr->next = s->next; 
+ cout<<s->info<<" deleted from last"<<endl; 
+ free(s); 
+ } 
+ } 
+} 
+
+
+
+
+#Min&Max
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
+using namespace std;
+void findMinAndMax(int arr[], int low, int high, int &min, int &max)
+{
+	if (low == high)
+	{
+		if (max<arr[low])
+		{
+			max=arr[low];
+		}
+		if (min > arr[high])
+		{
+			min = arr[high];
+		}
+		return;
+	}
+	if (high - low == 1)
+	{
+		if (arr[low] < arr[high])	
+		{
+			if (min > arr[low])
+			{
+				min = arr[low];
+			}
+			if (max<arr[high])
+			{
+				max=arr[high];
+			}
+		}
+		else
+		{
+			if (min > arr[high])
+			{
+				min = arr[high];
+			}
+			if (max < arr[low])
+			{
+				max=arr[low];
+			}
+		}
+		return;
+	}
+	int mid = (low + high) / 2;
+	findMinAndMax(arr, low, mid, min, max);	
+	findMinAndMax(arr, mid + 1, high, min, max);
+}
+int main()
+{
+	int arr[] = { 7, 12, 99, 3,46, 67, 8, 14 };
+	int n = sizeof(arr) / sizeof(arr[0]);
+	int max = arr[0], min = arr[0];
+	findMinAndMax(arr, 0, n - 1, min, max);
+	cout << "The minimum array element is " << min << endl;
+	cout << "The maximum array element is " << max;
+	return 0;
+}
+
+
+
+#SinglyLinkedListAllOprations
+#include<iostream>
+#include<cstdlib>
+using namespace std;
+struct node
+{
+	int info;
+	struct node *next;
+} *start;
+class sll
+{
+	public:
+		node* create_nodde(int);
+		void insert_begin();
+		void insert_last();
+		void insert_pos();
+		void delete_last();
+		void delete_begin();
+		void delete_pos();
+		void update_last();
+		void update_begin();
+		void update_pos();
+		void sort();
+		void reverse();
+		void search();
+		void display();
+		sll()
+		{
+			start=NULL;
+		}
+		
+};
+int main()
+{
+	int choice;
+	sll s1,s2;
+	start=NULL;
+	do
+	{
+		cout<<"----------------------------------"<<endl;
+		cout<<"Operations on singly linked list"<<endl;
+		cout<<"----------------------------------"<<endl;
+		cout<<"1.Insert at First"<<endl;
+		cout<<"2.Insert at Last"<<endl;
+		cout<<"3.Insert at Position"<<endl;
+		cout<<"4.Delete at First"<<endl;
+		cout<<"5.Delete at Last"<<endl;
+		cout<<"6.Delete at Position"<<endl;
+		cout<<"7.Update at First"<<endl;
+		cout<<"8.Update at Last"<<endl;
+		cout<<"9.Update at Positions"<<endl;
+		cout<<"10.Ascending Order"<<endl;
+		cout<<"11.Descending Order"<<endl;
+		cout<<"12.Search"<<endl;
+		cout<<"13.Display"<<endl;
+		cout<<"14.Exit"<<endl;
+		cout<<"Enter your choice"<<endl;
+		cin>>choice;
+		switch(choice)
+		{
+			case 1: s1.insert_begin();
+				s1.display();
+				break;
+			case 2: s1.insert_last();
+				s1.display();
+				break;
+			case 3: s1.insert_pos();
+				s1.display();
+				break;	
+			case 4: s1.delete_begin();
+				s1.display();
+				break;	
+			case 5: s1.delete_last();
+				s1.display();
+				break;	
+			case 6: s1.delete_pos();
+				s1.display();
+				break;	
+			case 7: s1.update_begin();
+				s1.display();
+				break;	
+			case 8: s1.update_last();
+				s1.display();
+				break;
+			case 9: s1.update_pos();
+				s1.display();
+				break;	
+			case 10: s1.sort();
+				s1.display();
+				break;	
+			case 11: s1.reverse();
+				s1.display();
+				break;	
+			case 12: s1.search();
+				s1.display();
+				break;	
+			case 13: s1.display();
+				break;
+			case 14: exit(0);
+				break;	
+		}
+	}
+	while(choice!=14);
+		
+}
+node *sll::node create_node(int value)
+{
+	struct node *temp, *s;
+	temp=new(struct node);
+	if(temp==NULL)
+	{
+		cout<<"Memory not allocated"<<endl;
+		return 0;
+	}
+	else
+	{
+		temp->info=value;
+		temp->next=NULL;
+		return temp;
+	}
+}
+void sll::insert_begin()
+{
+	int value;
+	cout<<"Enter the value to be inserted: "<<endl;
+	cin>>value;
+	struct node *temp,*s;
+	temp=create_node(value);
+	if(start==NULL)
+	{
+		start=temp;
+		start->next=NULL;
+		cout<<temp->info<<"is inserted in the empty list"<<endl;
+	}
+	else
+	{
+		s=start;
+		start=temp;
+		start->next=s;
+		cout<<temp->info<<"is inserted at first"<<endl;
+		
+	}
+}
+void sll::insert_last()
+{
+	int value;
+	cout<<"Enter the value to be inserted: ";
+	cin>>value;
+	struct node *temp, *s;
+	temp=create_node(value);
+	if(start==NULL)
+	{
+		start=temp;
+		start->next=NULL;
+		cout<<temp->info<<"is inserted in the empty list"<<endl;
+	}
+	else
+	{
+		s=start;
+		while(s->next!=NULL)
+		{
+			s=s->next;
+		}
+		temp->next=NULL;
+		s->next=temp;
+		cout<<temp->info<<"is inserted at last"<<endl;
+		
+	}
+	
+	
+}
+void sll::insert_pos()
+{
+	int value,pos,counter=0,loc=1;
+	struct node *temp, *s, *ptr ;
+	s=start;
+	while(s!=NULL)
+	{
+     	s=s->next;
+		counter++;	
+	}
+	if(counter==0)
+	{
+	}
+	else
+	{
+		cout<<"Enter the position from"<<loc<<"to"<<counter+1<<":";
+		cin>>pos;
+		s=start;
+		if(pos==1)
+		{
+			cout<<"Enter the value to be inserted: ";
+		 	cin>>value;
+			temp=create_node(value);
+			start=temp;
+			start->next=s;
+			cout<<temp->info<<"is inserted at first"<<endl;
+			
+		}
+		else if(pos>1 && pos<=counter)
+		{
+			cout<<"Enter the value to be inserted: ";
+		 	cin>>value;
+			temp=create_node(value);
+			for(int i=1; i<pos; i++)
+			{
+				ptr=s;
+				s=s->next;
+				
+			}
+			ptr->next=temp;
+			temp->next=s;
+			cout<<temp->info<<"is inserted at position"<<pos<<endl;
+		}
+		else if(pos==counter+1)
+		{
+			cout<<"Enter the value to be inserted: ";
+		 	cin>>value;	
+		 	temp=create_node(value);
+		 	while(s->next!=NULL)
+		 	{
+		 		s=s->next;
+		 		
+			}
+			temp->next=NULL;
+			s->next=temp;
+			cout<<temp->info<<"is inserted at last"<<endl;
+		}
+		else
+		{
+			cout<<"Position out of range...!"<<endl;
+		}
+	}
+}
+void sll::delete_begin()
+{
+	if(start==NULL)
+	{
+	}
+	else 
+	{
+		struct node *s, *ptr ;
+		s=start;
+		start=s->next;
+		cout<<s->info<<"deleted from first"<<endl;
+		free(s);
+	}
+}
+void sll::delete_last()
+{
+	int i, counter=0;
+	struct node *s, *ptr ;
+	if(start==NULL)
+		{
+		}
+	else 
+	{
+		s=start;
+		while(s!=NULL)
+		{
+			s=s->next;
+			counter++;		
+		}
+		s=start;
+		if(counter==1)
+		{
+			start=s->next;
+			cout<<s->info<<"deleted from last"<<endl;
+			free(s);
+		}
+		else
+		{
+			for(int i=1;i<counter;i++)
+			{
+				ptr=s;
+				s=s->next;
+			}
+			ptr->next=s->next;
+			cout<<s->info<<"deleted from last"<<endl;
+			free(s);
+		}
+	}
+}
+void sll::delete_pos()
+{
+	int pos, i, counter=0, loc=1;
+	struct node *s, *ptr ;
+	s=start;
+	while(s!=NULL)
+		{
+			s=s->next;
+			counter++;		
+		}
+		if(counter==0)
+		{
+		}
+		else
+		{
+			if(counter==1)
+			{
+				cout<<"Enter the position[SAY"<<loc<<"]:";
+				cin>>pos;
+				s=start;
+				if(pos==1)
+				{
+				start=s->next;
+				cout<<s->info<<"deleted from last"<<endl;
+				free(s);	
+				}
+				else
+				cout<<"Position out of range...!"<<endl;
+				free(s);
+			}
+			else
+			{
+				cout<<"Enter the position from"<<loc<<"to"<<counter<<":";
+				cin>>pos;
+				s=start;
+				if(pos==1)
+				{
+				start=s->next;
+				cout<<s->info<<"deleted from first"<<endl;
+				free(s);	
+				}
+				else if(pos>1 && pos<=counter)
+				{
+					for(i=1;i<pos;i++)
+					{
+						
+					ptr=s;
+					s=s->next;
+					}
+					ptr->next=s->next;
+					if(pos==counter)
+				{
+				
+				cout<<s->info<<"deleted from last"<<endl;
+				free(s);
+				}
+				else
+				{
+					cout<<s->info<<"deleted from position"<<pos<<endl;
+					free(s);
+				}
+				}
+				else
+				cout<<"Position out of range...! "<<endl;
+			}
+		}
+}
+void sll::update_begin()
+{
+	
+	int pos=1, value, i, counter=0;
+	struct node *s, *ptr ;
+	s=start;
+	while(s!=NULL)
+		{
+			s=s->next;
+			counter++;		
+		}
+		if(counter==0)
+		{
+		}
+		else if(pos==1)
+		{
+			cout<<"Enter the new node:";
+			cin>>value;
+			start->info=value;
+			cout<<"Node updated at first position:"<<pos<<"="<<start->info<<endl;
+		
+		}
+}
+void sll::update_last()
+{
+	int pos, value, i, counter=0;
+	struct node *s, *ptr ;
+	s=start;
+	while(s!=NULL)
+		{
+			s=s->next;
+			counter++;		
+		}
+		s=start;
+			if(counter==0)
+		{
+		}
+		else
+		{
+			cout<<"Enter the new node: ";
+			cin>>value;
+			for(i=1;i<counter;i++)
+			{
+				s=s->next;
+			}
+			s->info=value;
+			cout<<"Node updated at last position:"<<counter<<"="<<s->info<<endl;
+			
+		
+		}
+}
+void sll::update_pos()
+{
+	int value,pos,i,counter=0,loc=1;
+	struct node *s, *ptr ;
+	s=start;
+	while(s!=NULL)
+		{
+			s=s->next;
+			counter++;		
+		}
+		if(counter==0)
+		{
+		}
+		else
+		{
+			if(counter==1)
+			{
+				cout<<"Enter the position[SAY"<<loc<<"]:";
+				cin>>pos;
+				s=start;
+				if(pos==1)
+				{
+					cout<<"Enter the new node: ";
+					cin>>value;
+					start->info=value;
+					cout<<"Node updated at position:"<<pos<<"="<<start->info<<endl;
+					
+			
+				}
+				else
+				{
+				 	cout<<"Position out of range...!"<<endl;
+				}
+			}
+			else
+			{
+				cout<<"Enter the position from"<<loc<<"to"<<counter<<":";
+				cin>>pos;
+				s=start;
+				if(pos==1)
+				{
+					cout<<"Enter the new node: ";
+					cin>>value;
+					start->info=value;
+					cout<<"Node updated at position:"<<pos<<"="<<start->info<<endl;
+					
+				}
+					else if(pos>1 && pos<=counter)
+					{
+						cout<<"Enter the new node: ";
+						cin>>value;
+						for(i=1;i<pos;i++)
+						{
+						s=s->next;	
+						}
+							s->info=value;
+							cout<<"Node updated at position:"<<pos<<"="<<s->info<<endl;
+							
+					
+					}
+					else
+					cout<<"Position out of range...!"<<endl;
+					
+			}
+		}
+		
+}
+void sll::sort()
+	{
+		struct node *s, *ptr ;
+		int value;
+		if(start==NULL)
+		{
+		}
+		else
+		{
+			ptr=start;
+			while(ptr!=NULL)
+			{
+				for(s=ptr->next;s!=NULL;s=s->next)
+				{
+					if(ptr->info>s->info)
+					{
+						value=ptr->info;
+						ptr->info=s->info;
+						s->info=value;
+					}
+				}
+				ptr=ptr->next;
+				
+			}
+		}
+	}
+void sll::reverse()
+{
+	struct node *s, *ptr ;
+		int value;
+		if(start==NULL)
+		{
+		}
+		else
+		{
+			ptr=start;
+			while(ptr!=NULL)
+			{
+				for(s=ptr->next;s!=NULL;s=s->next)
+				{
+					if(ptr->info<s->info)
+					{
+						value=ptr->info;
+						ptr->info=s->info;
+						s->info=value;
+					}
+				}
+				ptr=ptr->next;
+           }
+		}
+}
+void sll::search()
+{
+	int value, loc=0; pos=0, counter=0;
+	struct node *s;
+	s=start;
+	while(s!=NULL)
+	{
+		s=s->next;	
+		counter++;
+	}
+	if(start==NULL)
+	{
+	}
+	else
+	{
+	
+	cout<<"Enter the value to be searched: ";
+	cin>>value;
+	struct node *s;
+	s=start;
+	while(s!=NULL)
+	{
+		pos++;
+		if(s->info==value)
+		{
+			loc++;
+			if(loc==1)
+			cout<<"Element"<<value<<"is found at position"<<pos;
+			else if(loc<=counter)
+			
+			cout<<" , "<<pos;
+		}
+	s=s->next;
+	}
+	cout<<endl;
+	if(loc==0)
+	cout<<"Element"<<value<<"is not found in the list"<<endl;
+}
+	
+}
+void sll::display()
+{
+	struct node *temp;
+	if(start==NULL)
+	cout<<"Linked list is empty...!"<<endl;
+	else
+	{
+		cout<<"Linked list contains:";
+		temp=start;
+		while(temp!=NULL)
+		{
+			cout<<temp->info<<" ";
+			temp=temp->next;
+		}
+		cout<<endl;
+	}
+}
+	
+
+
+#SumDoWhile
+#include<iostream>
+using namespace std;
+int main()
+{
+	int n, i=0, sum=0;
+	cout<<"Enter 10 numbers\n";
+	do
+	{
+		cin>>n;
+		sum = sum+n;
+		i++;
+    }
+	 while(i<4);
+	cout<<"Sum of 10 numbers is="<<sum<<endl;
+	return 0;
+	
+}
+
+
+
+#SumFor
+#include<iostream>
+using namespace std;
+int main()
+{
+	int n, sum=0;
+	cout<<"Enter 10 numbers\n";
+	for(int i=0; i<10; i++)
+	{
+		cin>>n;
+		sum = sum+n;
+    }
+	cout<<"Sum of 10 numbers is="<<sum<<endl;
+	return 0;
+	
+}
+
+
+
+#SumWhile
+#include<iostream>
+using namespace std;
+int main()
+{
+	int n,i=0, sum=0;
+	cout<<"Enter 10 numbers\n";
+	while(i<10)
+	{
+		cin>>n;
+		sum = sum+n;
+		i++;
+		
+    }
+	cout<<"Sum of 10 numbers is="<<sum<<endl;
+	return 0;
+	
+}
+
+
+
+
+
+
+
